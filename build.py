@@ -125,7 +125,7 @@ def switcher(current, all_themes):
     )
 
 
-def build(theme=None, out=OUT, preview_themes=None):
+def build(theme=None, out=OUT, preview_themes=None, analytics=False):
     ctx = load_all()
     theme = theme or ctx["site"].get("theme", "classic")
     env = Environment(
@@ -143,6 +143,11 @@ def build(theme=None, out=OUT, preview_themes=None):
         html = env.get_template(f"{page}.html").render(page=page, theme=theme, **ctx)
         if preview_themes:
             html = html.replace("</body>", switcher(theme, preview_themes).replace("{page}", page) + "</body>")
+        # Visitor statistics (GoatCounter: no cookies, no personal data) only in the published build.
+        if analytics and ctx["site"].get("goatcounter"):
+            code = ctx["site"]["goatcounter"]
+            html = html.replace("</head>",
+                f'  <script data-goatcounter="https://{code}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>\n</head>', 1)
         (out / f"{page}.html").write_text(html, encoding="utf-8")
     print(f"built {theme}: {len(PAGES)} pages, {len(ctx['papers'])} papers -> {out.relative_to(ROOT)}/")
 
@@ -209,6 +214,6 @@ if __name__ == "__main__":
         build_preview()
         serve(build_preview, PREVIEW, port)
     else:
-        build()
+        build(analytics=cmd == "build")  # `serve` is local, so it never counts visits
         if cmd == "serve":
             serve(build, OUT, port)

@@ -52,6 +52,9 @@ news:
 # Papers featured on the home page (ids from publications.yml)
 featured: [learning-political, batching, nice-try-chatgpt, self-correction]
 
+# GoatCounter site code (https://<code>.goatcounter.com). Counts visits on the published site only.
+goatcounter:
+
 # Hover effect on the portrait (plot theme): one of these is picked at random on each page load.
 # Options: detect (object-detection boxes), json (LLM annotation card). Leave empty for none.
 portrait_effect: [detect, json]
