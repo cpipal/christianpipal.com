@@ -3,7 +3,7 @@
 .portrait.fx:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .fx-layer { position: absolute; inset: 0; pointer-events: none; z-index: 2; font: 500 9.5px/1.2 var(--mono); }
 .fx-layer > * { opacity: 0; transition: opacity .25s ease, transform .3s cubic-bezier(.2,.8,.2,1); }
-.portrait.fx-active .fx-layer > * { opacity: 1; transform: none; }
+.portrait.fx-active .fx-current > * { opacity: 1; transform: none; }
 
 /* object detection boxes */
 .fx-box { position: absolute; border: 1.5px solid var(--c); box-shadow: 0 0 0 1px rgb(0 0 0 / .25); transform: scale(1.08); }
@@ -24,7 +24,7 @@
   font: 10px/1.45 var(--mono); white-space: pre; overflow: hidden; transform: translateY(20px);
 }
 .fx-line { opacity: 0; transition: opacity .2s ease; }
-.portrait.fx-active .fx-line { opacity: 1; }
+.portrait.fx-active .fx-current .fx-line { opacity: 1; }
 .fx-code k { color: #79c0ff; } .fx-code s { color: #a5d6ff; text-decoration: none; } .fx-code n { color: #ffa657; }
 
 @media (max-width: 640px) {

@@ -1,6 +1,6 @@
 // Hover / tap effects for the portrait ("Fig. 0").
 //
-// <div class="portrait" data-fx="detect json"> — one of the listed effects is picked at random on each load.
+// <div class="portrait" data-fx="detect json"> — one of the listed effects is picked at random on every hover/tap.
 // Effects are set in content/site.yml (portrait_effect) and can be forced with ?fx=detect or ?fx=json.
 // Box coordinates are in % of the 400×500 portrait (static/img/portrait.jpg).
 (function () {
@@ -41,7 +41,7 @@
   }
 
   function drawBoxes(portrait) {
-    var o = overlay(portrait, "boxes");
+    var o = overlay(portrait, "detect");
     BOXES.forEach(function (b, i) {
       var box = el("div", "fx-box" + (b.w > 90 ? " fx-box-frame" : ""), o);
       box.style.cssText = "left:" + b.x + "%;top:" + b.y + "%;width:" + b.w + "%;height:" + b.h + "%;--c:" + b.c +
@@ -50,6 +50,7 @@
     });
     var status = el("div", "fx-status", o, "yolo-cpipal · " + BOXES.length + " objects<span class=\"fx-optional\"> · 12 ms</span>");
     status.style.transitionDelay = BOXES.length * 90 + "ms";
+    return o;
   }
 
   function drawJSON(portrait) {
@@ -57,6 +58,7 @@
     JSON_LINES.forEach(function (l, i) {
       el("span", "fx-line", pre, l + "\n").style.transitionDelay = 120 + i * 60 + "ms";
     });
+    return pre.parentNode;
   }
 
   function setup(portrait) {
@@ -64,10 +66,10 @@
       .split(/[\s,]+/).filter(function (f) { return CAPTIONS[f]; });
     var img = portrait.querySelector("img");
     if (!choices.length || !img) return;
-    var fx = choices[Math.floor(Math.random() * choices.length)];
-    portrait.dataset.fx = fx;
     portrait.classList.add("fx");
-    (fx === "detect" ? drawBoxes : drawJSON)(portrait);
+    var layers = {};
+    choices.forEach(function (f) { layers[f] = (f === "detect" ? drawBoxes : drawJSON)(portrait); });
+    var fx = null;
 
     // keep "Fig. 0." and swap only the sentence after it
     var caption = portrait.closest("figure") && portrait.closest("figure").querySelector("figcaption");
@@ -80,7 +82,14 @@
       text.textContent = idle;
     }
 
-    function on() { portrait.classList.add("fx-active"); if (text) text.textContent = CAPTIONS[fx]; }
+    function on() {
+      // new random pick on every hover / tap
+      fx = choices[Math.floor(Math.random() * choices.length)];
+      portrait.dataset.fx = fx;
+      Object.keys(layers).forEach(function (f) { layers[f].classList.toggle("fx-current", f === fx); });
+      portrait.classList.add("fx-active");
+      if (text) text.textContent = CAPTIONS[fx];
+    }
     function off() { portrait.classList.remove("fx-active"); if (text) text.textContent = idle; }
     function toggle() { portrait.classList.contains("fx-active") ? off() : on(); }
 

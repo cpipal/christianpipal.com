@@ -53,7 +53,7 @@ news:
 featured: [learning-political, batching, nice-try-chatgpt, self-correction]
 
 # GoatCounter site code (https://<code>.goatcounter.com). Counts visits on the published site only.
-goatcounter:
+goatcounter: christianpipal
 
 # Hover effect on the portrait (plot theme): one of these is picked at random on each page load.
 # Options: detect (object-detection boxes), json (LLM annotation card). Leave empty for none.
