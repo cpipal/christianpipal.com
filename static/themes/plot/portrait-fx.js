@@ -1,9 +1,10 @@
 // Hover / tap effects for the portrait ("Fig. 0").
 //
 // <div class="portrait" data-fx="detect json">: one of the listed effects is picked at random on every hover/tap.
-// Effects are set in content/site.yml (portrait_effect) and can be forced with ?fx=detect or ?fx=json.
-// Box coordinates are in % of the 400×500 portrait (static/img/portrait.jpg).
+// Effects are set in content/site.yml (portrait_effect) and can be forced with ?fx=<name>.
+// Coordinates are in % of the 400×500 portrait (static/img/portrait.jpg).
 (function () {
+  var REDUCED = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
   var BOXES = [
     { label: "face", p: 0.99, x: 28, y: 14, w: 47, h: 52, c: "#4ade80" },
     { label: "glasses", p: 0.97, x: 27, y: 29.5, w: 48, h: 12, c: "#60a5fa" },
@@ -21,9 +22,18 @@
     '  <k>"batch_size"</k>: <n>1</n>',
     "}",
   ];
+  var HALLUCINATIONS = [
+    "A golden retriever wearing glasses.",
+    "Two raccoons in a blazer.",
+    "A stock photo titled 'Confident Professional'.",
+    "An owl, cautiously optimistic.",
+    "A podcast host, mid-sentence.",
+  ];
   var CAPTIONS = {
     detect: "The author, as seen by an object detector.",
     json: "The author, coded by an LLM (temperature = 0).",
+    hallucinate: "The author, described by a vision model.",
+    patches: "The author, as 80 image patches.",
   };
 
   function el(tag, cls, parent, html) {
@@ -33,12 +43,16 @@
     if (parent) parent.appendChild(e);
     return e;
   }
-
   function overlay(portrait, kind) {
     var o = el("div", "fx-layer fx-layer-" + kind, portrait);
     o.setAttribute("aria-hidden", "true");
     return o;
   }
+  function photo(img) { return 'url("' + (img.currentSrc || img.src) + '")'; }
+  function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+
+  // ---------------------------------------------------------------- effects
+  // Each returns its layer; a layer may define fxStart() / fxStop() for animated effects.
 
   function drawBoxes(portrait) {
     var o = overlay(portrait, "detect");
@@ -61,14 +75,61 @@
     return pre.parentNode;
   }
 
+  // a vision model describes the author, confidently and wrongly
+  function drawHallucinate(portrait) {
+    var o = overlay(portrait, "hallucinate");
+    el("div", "fx-scan", o);
+    var term = el("div", "fx-term", o);
+    var out = el("div", "fx-term-out", term);
+    var conf = el("div", "fx-term-conf", term);
+    term.insertBefore(el("div", "fx-term-cmd", null, "&gt; vision.describe(img)"), out);
+    var timer = null;
+    o.fxStart = function () {
+      var text = '"' + pick(HALLUCINATIONS) + '"', i = 0;
+      conf.textContent = "";
+      out.textContent = "";
+      if (REDUCED) { out.textContent = text; conf.textContent = "confidence: 0.97"; return; }
+      timer = setInterval(function () {
+        out.textContent = text.slice(0, ++i);
+        if (i >= text.length) {
+          clearInterval(timer);
+          timer = setTimeout(function () { conf.textContent = "confidence: 0.97"; }, 250);
+        }
+      }, 38);
+    };
+    o.fxStop = function () { clearInterval(timer); clearTimeout(timer); timer = null; };
+    return o;
+  }
+
+  // the author cut into ViT patches, some masked
+  function drawPatches(portrait, img) {
+    var COLS = 8, ROWS = 10, MASKED = [3, 12, 17, 29, 38, 44, 51, 58, 66, 75, 21, 70];
+    var o = overlay(portrait, "patches");
+    var grid = el("div", "fx-patches", o);
+    for (var i = 0; i < COLS * ROWS; i++) {
+      var col = i % COLS, row = Math.floor(i / COLS);
+      var p = el("div", "fx-patch" + (MASKED.indexOf(i) >= 0 ? " fx-masked" : ""), grid);
+      p.style.backgroundImage = photo(img);
+      p.style.backgroundSize = COLS * 100 + "% " + ROWS * 100 + "%";
+      p.style.backgroundPosition = (col / (COLS - 1)) * 100 + "% " + (row / (ROWS - 1)) * 100 + "%";
+      p.style.transitionDelay = (col + row) * 18 + "ms";
+    }
+    el("div", "fx-status", o, "80 patches · 12 masked<span class=\"fx-optional\"> · [CLS]</span>").style.transitionDelay = "300ms";
+    return o;
+  }
+
+  var DRAW = { detect: drawBoxes, json: drawJSON, hallucinate: drawHallucinate, patches: drawPatches };
+
+  // ---------------------------------------------------------------- wiring
+
   function setup(portrait) {
     var choices = (new URLSearchParams(location.search).get("fx") || portrait.dataset.fx || "")
-      .split(/[\s,]+/).filter(function (f) { return CAPTIONS[f]; });
+      .split(/[\s,]+/).filter(function (f) { return DRAW[f]; });
     var img = portrait.querySelector("img");
     if (!choices.length || !img) return;
     portrait.classList.add("fx");
     var layers = {};
-    choices.forEach(function (f) { layers[f] = (f === "detect" ? drawBoxes : drawJSON)(portrait); });
+    choices.forEach(function (f) { layers[f] = DRAW[f](portrait, img); });
     var fx = null;
 
     // All caption variants are stacked in one grid cell and only toggled visible, so the caption
@@ -96,14 +157,20 @@
     }
 
     function on() {
+      if (fx && layers[fx].fxStop) layers[fx].fxStop();
       // new random pick on every hover / tap
       fx = choices[Math.floor(Math.random() * choices.length)];
       portrait.dataset.fx = fx;
       Object.keys(layers).forEach(function (f) { layers[f].classList.toggle("fx-current", f === fx); });
+      if (layers[fx].fxStart) layers[fx].fxStart();
       portrait.classList.add("fx-active");
       showCaption(fx);
     }
-    function off() { portrait.classList.remove("fx-active"); showCaption("idle"); }
+    function off() {
+      if (fx && layers[fx].fxStop) layers[fx].fxStop();
+      portrait.classList.remove("fx-active");
+      showCaption("idle");
+    }
     function toggle() { portrait.classList.contains("fx-active") ? off() : on(); }
 
     portrait.tabIndex = 0;

@@ -40,3 +40,24 @@
 .fx-caption { display: grid; }
 .fx-caption > span { grid-area: 1 / 1; visibility: hidden; }
 .fx-caption > span.fx-cap-on { visibility: visible; }
+
+/* hallucinate: scan line + terminal */
+.fx-scan { position: absolute; left: 0; right: 0; height: 30%; top: -30%; background: linear-gradient(transparent, rgb(74 222 128 / .28), transparent); }
+.portrait.fx-active .fx-current .fx-scan { animation: fx-scan 1.4s ease-in-out 2; }
+@keyframes fx-scan { to { top: 100%; } }
+.fx-term { position: absolute; left: 6px; right: 6px; bottom: 6px; padding: 5px 7px; min-height: 5.2em; background: rgb(10 12 14 / .86); color: #e6edf3; font: 10px/1.4 var(--mono); transform: translateY(8px); }
+.fx-term-cmd { color: #8b949e; }
+.fx-term-out { color: #a5d6ff; }
+.fx-term-out::after { content: "▍"; color: #4ade80; animation: fx-blink 1s steps(1) infinite; }
+.fx-term-conf { color: #ffa657; }
+@keyframes fx-blink { 50% { opacity: 0; } }
+
+/* patches: ViT grid with masked tokens */
+.fx-patches { position: absolute; inset: 0; display: grid; grid-template: repeat(10, 1fr) / repeat(8, 1fr); background: #0b0d0f; }
+.fx-patch { transition: transform .35s cubic-bezier(.2,.8,.2,1); }
+.portrait.fx-active .fx-current .fx-patch { transform: scale(.86); }
+.fx-masked { background: repeating-linear-gradient(45deg, #1f2428 0 3px, #2d333b 3px 6px) !important; }
+@media (prefers-reduced-motion: reduce) {
+  .fx-patch { transition: none !important; }
+  .fx-scan, .fx-term-out::after { animation: none !important; }
+}

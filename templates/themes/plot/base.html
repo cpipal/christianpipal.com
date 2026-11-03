@@ -21,7 +21,7 @@
   <a class="skip" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="wrap header-inner">
-      <a class="brand" href="index.html"><span class="brand-fn">f(</span>{{ site.name }}<span class="brand-fn">)</span></a>
+      <a class="brand egg egg-right" href="index.html" data-egg="Wien West Hütteldorf"><span class="brand-fn">f(</span>{{ site.name }}<span class="brand-fn">)</span></a>
       <nav class="nav" aria-label="Main">
         {% for item in site.nav %}
         <a href="{{ item.page }}.html"{% if item.page == page %} aria-current="page"{% endif %}>{{ item.label | lower }}</a>
@@ -37,7 +37,7 @@
 
   <footer class="site-footer">
     <div class="wrap footer-inner">
-      <span>© {{ year }} {{ site.name }} · n = {{ papers | length }} entries · built with Python &amp; Jinja2</span>
+      <span>© {{ year }} {{ site.name }} · n = {{ papers | length }} entries · <span class="egg egg-up" data-egg="Rapid Wien Lebenssinn">built with Python &amp; Jinja2</span></span>
       <span class="footer-links">{% for l in site.links %}<a href="{{ l.url }}">{{ l.label | lower }}</a>{% endfor %}</span>
     </div>
   </footer>

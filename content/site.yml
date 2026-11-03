@@ -55,7 +55,8 @@ featured: [learning-political, batching, nice-try-chatgpt, self-correction]
 # GoatCounter site code (https://<code>.goatcounter.com). Counts visits on the published site only.
 goatcounter: christianpipal
 
-# Hover effect on the portrait (plot theme): one of these is picked at random on each page load.
-# Options: detect (object-detection boxes), json (LLM annotation card). Leave empty for none.
-portrait_effect: [detect, json]
+# Hover effect on the portrait (plot theme): one of these is picked at random on every hover.
+# Options: detect (object-detection boxes), json (LLM annotation card), hallucinate (wrong vision-model
+# description), patches (ViT image patches). Leave empty for none.
+portrait_effect: [detect, json, hallucinate, patches]
 theme: plot      # classic | terminal | latex | notebook | plot (see: python build.py preview)

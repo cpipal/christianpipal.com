@@ -91,6 +91,16 @@ svg { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 1
 .footer-inner { display: flex; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; }
 .footer-links a { color: var(--muted); margin-right: 14px; text-decoration: none; }
 .footer-links a:hover { color: var(--accent); }
+/* easter eggs: a small green-and-white tag appears after hovering for a moment */
+.egg { position: relative; }
+.egg::after {
+  content: attr(data-egg); position: absolute; z-index: 6; pointer-events: none; white-space: nowrap;
+  padding: 1px 6px; font: 600 0.62rem/1.5 var(--mono); letter-spacing: .03em; color: #fff; background: #00843d;
+  border: 1px solid #fff; box-shadow: 0 0 0 1px #00843d; opacity: 0; transition: opacity .2s ease;
+}
+.egg:hover::after { opacity: 1; transition-delay: .5s; }
+.egg-right::after { left: calc(100% + 10px); top: 50%; translate: 0 -50%; }
+.egg-up::after { left: 0; bottom: calc(100% + 6px); }
 
 /* ------------------------------------------------------------------ sections */
 .block { margin-top: 64px; }
