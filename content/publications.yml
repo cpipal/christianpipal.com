@@ -12,27 +12,6 @@ sections:
   - key: articles
     title: Journal articles
     items:
-      - id: batching
-        figure: figures/batching.png
-        figure_caption: "Cost savings versus accuracy change relative to b=1 for each model and batch size; the shaded region marks the safe operating zone, and batch-size labels show where larger batches push models along the cost–accuracy frontier."
-        title: "How Much Can You Fit in a Prompt? Item Batching and Multi-Variable Stacking in LLM-Based Automated Content Analysis"
-        authors: ["Pipal, Christian", "Vogel, Eva-Maria", "Wack, Morgan", "Esser, Frank"]
-        year: 2026
-        venue: Computational Communication Research
-        details: forthcoming
-        preprint: https://doi.org/10.31235/osf.io/bxtsf_v1
-        abstract: >-
-          Large language models (LLMs) are increasingly being used for text classification across the social
-          sciences, yet researchers overwhelmingly classify one text per variable per prompt. Coding 100,000 texts on
-          four variables requires 400,000 API calls. Batching 25 items and stacking all variables into a single prompt
-          reduces this to 4,000 calls, cutting token costs by over 80%. Whether this degrades coding quality is
-          unknown. We tested eight production LLMs from four providers on 3,962 expert-coded tweets across four tasks,
-          varying batch size from 1 to 1,000 items and stacking up to 25 coding dimensions per prompt. Six of eight
-          models maintained accuracy within 2 pp of the single-item baseline through batch sizes of 100. Variable
-          stacking with up to 10 dimensions produced results comparable to single-variable coding, with degradation
-          driven by task complexity rather than prompt length. Within this safe operating range, the measurement
-          error from batching and stacking is smaller than typical inter-coder disagreement in the ground-truth data.
-
       - id: citation-limits
         abstract: "Do policies exempting references from journal word limits increase the demographic diversity of cited authors? We test this using a natural experiment across 27 political science journals. Between 2022 and 2024, ten journals adopted policies exempting references from manuscript word counts, while seventeen maintained traditional limits. Using generalized synthetic control methods to construct counterfactuals robust to differential pre-trends, we find that removing reference limits significantly expands bibliographies (+10.3 citations per article), confirming that word limits restrict citation volume. However, the proportions of citations for women, racial/ethnic minorities, and scholars from the Global South remain unchanged. Rather than citing outside their original bubbles, authors expand their bibliographies proportionally, maintaining pre-existing demographic ratios. Minimum detectable effects of 1.2–2.8% allow us to rule out even modest compositional shifts. These findings, robust across classification methods, estimators, levels of analysis, and journal exclusions, support a scale-invariance interpretation. Additional reference capacity alone does not change the exposure and attention patterns from which authors select citations. In short, structural interventions increase citation volume, but changing citation composition may require changing the literature scholars encounter and prioritize."
         figure: figures/citation-limits.png
@@ -253,6 +232,25 @@ sections:
   - key: working
     title: Working papers
     items:
+      - id: batching
+        figure: figures/batching.png
+        figure_caption: "Cost savings versus accuracy change relative to b=1 for each model and batch size; the shaded region marks the safe operating zone, and batch-size labels show where larger batches push models along the cost–accuracy frontier."
+        title: "Researchers Waste 80% of LLM Annotation Costs by Classifying One Text at a Time"
+        authors: ["Pipal, Christian", "Vogel, Eva-Maria", "Wack, Morgan", "Esser, Frank"]
+        year: 2026
+        preprint: https://doi.org/10.31235/osf.io/bxtsf_v1
+        abstract: >-
+          Large language models (LLMs) are increasingly being used for text classification across the social
+          sciences, yet researchers overwhelmingly classify one text per variable per prompt. Coding 100,000 texts on
+          four variables requires 400,000 API calls. Batching 25 items and stacking all variables into a single prompt
+          reduces this to 4,000 calls, cutting token costs by over 80%. Whether this degrades coding quality is
+          unknown. We tested eight production LLMs from four providers on 3,962 expert-coded tweets across four tasks,
+          varying batch size from 1 to 1,000 items and stacking up to 25 coding dimensions per prompt. Six of eight
+          models maintained accuracy within 2 pp of the single-item baseline through batch sizes of 100. Variable
+          stacking with up to 10 dimensions produced results comparable to single-variable coding, with degradation
+          driven by task complexity rather than prompt length. Within this safe operating range, the measurement
+          error from batching and stacking is smaller than typical inter-coder disagreement in the ground-truth data.
+
       - id: learning-political
         figure: figures/learning-political.png
         figure_caption: "Audience engagement and the dynamics of political posting (H4) — better relative performance of a creator's first political post predicts a sooner next political post (a), and stronger engagement with lifestyle-political posts predicts a sooner first formal-political post (b); hazard ratios plus Kaplan–Meier curves by performance quartile."
