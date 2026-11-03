@@ -1,0 +1,25 @@
+{# Interactive plot of all papers (year × research line). Drawn by static/themes/plot/plot.js #}
+{% macro plot_figure(num, mode, caption) %}
+<figure class="plot-fig" aria-labelledby="plot-cap">
+  <div class="plot-head">
+    <ul class="legend" aria-label="Legend">
+      {% for l in research.lines %}
+      <li>{% if mode == "pubs" %}<button type="button" class="legend-line line-{{ l.key }}" data-line="{{ l.key }}"><span class="swatch"></span>{{ l.kicker | lower }}</button>{% else %}<span class="legend-line line-{{ l.key }}"><span class="swatch"></span>{{ l.kicker | lower }}</span>{% endif %}</li>
+      {% endfor %}
+    </ul>
+    <ul class="legend legend-shapes" aria-label="Marker shapes">
+      <li><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="4.5"/></svg>article</li>
+      <li><svg viewBox="0 0 12 12" aria-hidden="true"><rect x="1.8" y="1.8" width="8.4" height="8.4"/></svg>chapter</li>
+      <li><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1 11 6 6 11 1 6z"/></svg>preprint</li>
+      <li><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.2 11 10.5H1z"/></svg>data / software</li>
+    </ul>
+  </div>
+  <div class="plot" id="paper-plot" data-mode="{{ mode }}" role="group" aria-label="Plot of all papers by year and research line. Each point links to the paper."></div>
+  <figcaption id="plot-cap"><span class="fig-no">Fig. {{ num }}.</span> {{ caption }}</figcaption>
+</figure>
+{% endmacro %}
+
+{% macro plot_data() %}
+<script type="application/json" id="papers-data">{{ papers_json }}</script>
+<script type="application/json" id="lines-data">[{% for l in research.lines %}{"key": {{ l.key | tojson }}, "label": {{ l.kicker | lower | tojson }}}{{ "," if not loop.last }}{% endfor %}]</script>
+{% endmacro %}

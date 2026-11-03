@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Teaching · {{ site.name }}{% endblock %}
+{% block doctitle %}Teaching Portfolio{% endblock %}
+{% block content %}
+<div class="abstract-env">
+  <h2 class="abstract-title">Abstract</h2>
+  <div class="abstract-text">{{ teaching.intro | md }}</div>
+</div>
+
+{% for g in teaching.groups %}
+<section class="sec">
+  <h2 class="sec-title">{{ g.title }}</h2>
+  <table class="tabular">
+    <tbody>
+    {% for c in g["items"] %}
+      <tr><td class="t-main"><strong>{{ c.title }}</strong><br><em>{{ c.kind }}</em>, {{ c.where }}</td><td class="t-when">{{ c.when }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endfor %}
+
+<section class="sec">
+  <h2 class="sec-title">Supervision</h2>
+  <div>{{ teaching.supervision | md }}</div>
+</section>
+{% endblock %}

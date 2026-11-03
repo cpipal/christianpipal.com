@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% call nb.code(1) %}<span class="tok-f">library</span>(cpipal)
+<span class="tok-f">profile</span>(){% endcall %}
+{% call nb.out(1, "profile-out") %}
+<div class="profile">
+  <div class="portrait">
+    {% if site.photo %}<img src="{{ site.photo }}" alt="Portrait of {{ site.name }}" onerror="this.remove()">{% endif %}
+    <span class="initials" aria-hidden="true">{{ site.name.split()[0][0] }}{{ site.name.split()[-1][0] }}</span>
+  </div>
+  <div class="profile-text">
+    <p class="obj-class">&lt;researcher&gt;</p>
+    <h1>{{ site.name }}</h1>
+    <dl class="kv">
+      <dt>$ role</dt><dd>{{ site.role }}</dd>
+      <dt>$ affiliation</dt><dd>{{ site.affiliation }}</dd>
+    </dl>
+    <ul class="social">
+      {% for l in site.links %}<li><a href="{{ l.url }}">{{ m.icon(l.icon) }}<span>{{ l.label }}</span></a></li>{% endfor %}
+      <li><a href="cv.html">{{ m.icon("cv") }}<span>CV</span></a></li>
+    </ul>
+  </div>
+</div>
+{% endcall %}
+
+{% call nb.code(2) %}<span class="tok-f">cat</span>(bio)  <span class="tok-c"># who I am, in prose</span>{% endcall %}
+{% call nb.out(2, "prose-out") %}
+<div class="bio prose">{{ site.bio | md }}</div>
+{% endcall %}
+
+{% call nb.code(3) %}research_lines <span class="tok-o">|&gt;</span>
+  <span class="tok-f">left_join</span>(<span class="tok-f">count</span>(papers, line))  <span class="tok-c"># three lines: what / how / about the field</span>{% endcall %}
+{% call nb.out(3, "tbl-out") %}
+<p class="tbl-meta"># A tibble: {{ research.lines | length }} × 4</p>
+<div class="tbl tbl-lines">
+  {{ nb.tibble_head([("", "c-idx"), ("line", "c-key"), ("title", "c-main"), ("n", "c-n")]) }}
+  <div class="tbl-row tbl-types" aria-hidden="true"><span class="c-idx"></span><span class="c-key">&lt;chr&gt;</span><span class="c-main">&lt;chr&gt;</span><span class="c-n">&lt;int&gt;</span></div>
+  {% for l in research.lines %}
+  {% set ns = namespace(n=0) %}{% for p in papers.values() %}{% if l.key in p.lines %}{% set ns.n = ns.n + 1 %}{% endif %}{% endfor %}
+  <a class="tbl-row line-{{ l.key }}" href="research.html#{{ l.key }}">
+    <span class="c-idx">{{ loop.index }}</span>
+    <span class="c-key"><span class="tok-s">{{ l.key }}</span></span>
+    <span class="c-main"><strong>{{ l.title }}</strong><span class="c-sub">{{ l.clusters | map(attribute="title") | join(" · ") }}</span></span>
+    <span class="c-n">{{ ns.n }}</span>
+  </a>
+  {% endfor %}
+</div>
+{% endcall %}
+
+{% call nb.code(4) %}papers <span class="tok-o">|&gt;</span>
+  <span class="tok-f">filter</span>(id <span class="tok-o">%in%</span> featured) <span class="tok-o">|&gt;</span>
+  <span class="tok-f">arrange</span>(<span class="tok-f">desc</span>(year))  <span class="tok-c"># click a row to expand</span>{% endcall %}
+{% call nb.out(4, "tbl-out") %}
+<p class="tbl-meta"># A tibble: {{ site.featured | length }} × 5 — selected recent work</p>
+<div class="tbl pub-list">
+  {{ nb.tibble_head([("", "c-idx"), ("year", "c-year"), ("title / authors", "c-main"), ("venue", "c-venue"), ("line", "c-lines")]) }}
+  {% for pid in site.featured %}{{ nb.pub(papers[pid], lines, loop.index) }}{% endfor %}
+</div>
+<p class="more-link"><a href="publications.html"><span class="tok-f">view</span>(papers) <span aria-hidden="true">→</span></a></p>
+{% endcall %}
+
+<div class="split">
+  <div>
+    {% call nb.code(5) %}projects <span class="tok-o">|&gt;</span> <span class="tok-f">filter</span>(status <span class="tok-o">==</span> <span class="tok-s">"ongoing"</span>){% endcall %}
+    {% call nb.out(5, "list-out") %}
+    <ol class="rlist">
+      {% for p in research.projects if p.status == "ongoing" %}
+      <li><span class="ri">[[{{ loop.index }}]]</span><a href="research.html#{{ p.key }}">{{ p.title }}</a><span class="rs">{{ p.funder }} · {{ p.role }}</span></li>
+      {% endfor %}
+    </ol>
+    {% endcall %}
+  </div>
+  <div>
+    {% call nb.code(6) %}news <span class="tok-o">|&gt;</span> <span class="tok-f">head</span>(<span class="tok-n">{{ site.news | length }}</span>){% endcall %}
+    {% call nb.out(6, "list-out") %}
+    <ul class="news">
+      {% for n in site.news %}<li><time>{{ n.date }}</time><span>{{ n.text | md(inline=true) }}</span></li>{% endfor %}
+    </ul>
+    {% endcall %}
+  </div>
+</div>
+
+{% call nb.code(7) %}<span class="tok-c"># </span><span class="cursor" aria-hidden="true"></span>{% endcall %}
+{% endblock %}

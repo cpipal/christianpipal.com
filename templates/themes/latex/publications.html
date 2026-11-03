@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Publications · {{ site.name }}{% endblock %}
+{% block doctitle %}Publications{% endblock %}
+{% block content %}
+<div class="abstract-env">
+  <h2 class="abstract-title">Abstract</h2>
+  <div class="abstract-text"><p>A complete bibliography. Expand an entry to read its abstract and see its key figure.
+    Entries can be restricted to one research line, or searched by title, author and abstract.</p></div>
+</div>
+
+<div class="filters" role="search">
+  <div class="chips" role="group" aria-label="Filter by research line">
+    <span class="filter-label">Restrict to:</span>
+    <button type="button" class="filter-chip" data-line="all" aria-pressed="true">all</button>
+    {% for l in research.lines %}
+    <button type="button" class="filter-chip line-{{ l.key }}" data-line="{{ l.key }}" aria-pressed="false">{{ l.kicker | lower }}</button>
+    {% endfor %}
+  </div>
+  <div class="filter-right">
+    <label class="search-label" for="pub-search">\texttt{grep}</label>
+    <input type="search" id="pub-search" placeholder="title, author, abstract…" aria-label="Search publications">
+    <button type="button" class="text-button" id="expand-all">Expand all</button>
+  </div>
+</div>
+<p class="filter-empty" hidden><em>No entries match.</em> Q.E.D.</p>
+
+{% for s in pubs.sections %}
+<section class="sec pub-section" data-section="{{ s.key }}">
+  <h2 class="sec-title">{{ s.title }} <span class="count"></span></h2>
+  <div class="bibliography">
+    {% for p in s["items"] %}{{ m.pub(papers[p.id], lines) }}{% endfor %}
+  </div>
+</section>
+{% endfor %}
+{% endblock %}

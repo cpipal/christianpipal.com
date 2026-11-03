@@ -1,0 +1,8 @@
+.venv/
+_site/
+__pycache__/
+.DS_Store
+.claude/settings.local.json
+_preview/
+_scratch/
+.claude/

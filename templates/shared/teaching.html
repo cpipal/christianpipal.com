@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Teaching · {{ site.name }}{% endblock %}
+{% block content %}
+<header class="page-head">
+  <h1>Teaching</h1>
+  <div class="lede prose">{{ teaching.intro | md }}</div>
+</header>
+
+{% for g in teaching.groups %}
+<section class="block">
+  <h2 class="section-title">{{ g.title }}</h2>
+  <ul class="rows">
+    {% for c in g["items"] %}
+    <li><span class="when">{{ c.when }}</span><span class="what"><strong>{{ c.title }}</strong><span class="where">{{ c.kind }} · {{ c.where }}</span></span></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endfor %}
+
+<section class="block">
+  <h2 class="section-title">Supervision</h2>
+  <div class="prose">{{ teaching.supervision | md }}</div>
+</section>
+{% endblock %}

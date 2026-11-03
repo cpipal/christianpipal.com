@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Publications · {{ site.name }}{% endblock %}
+{% block content %}
+<header class="page-head">
+  {{ m.prompt("ls papers/ | less", "~") }}
+  <h1>papers/</h1>
+  <p class="lede"><span class="c">#</span> Expand an entry with <span class="kbd">[+]</span> to read its abstract and key figure. Filter by research line, or press <span class="kbd">/</span> to grep.</p>
+</header>
+
+<div class="filters" role="search">
+  <div class="chips" role="group" aria-label="Filter by research line">
+    <span class="c filt-label">--line=</span>
+    <button type="button" class="filter-chip" data-line="all" aria-pressed="true">all</button>
+    {% for l in research.lines %}
+    <button type="button" class="filter-chip line-{{ l.key }}" data-line="{{ l.key }}" aria-pressed="false">{{ l.kicker | lower }}</button>
+    {% endfor %}
+  </div>
+  <div class="filter-right">
+    <label class="grep"><span class="c">grep -i</span> <input type="search" id="pub-search" placeholder="pattern" aria-label="Search publications" autocomplete="off"></label>
+    <button type="button" class="text-button" id="expand-all">Expand all</button>
+  </div>
+</div>
+<p class="filter-empty" hidden><span class="err">grep: no match</span> — exit status 1</p>
+
+{% for s in pubs.sections %}
+<section class="pub-section" data-section="{{ s.key }}">
+  {{ m.frame_title(s.key ~ "/", s.title) }}
+  <h2 class="sr-only">{{ s.title }} <span class="count"></span></h2>
+  <div class="pub-list">
+    {% for p in s["items"] %}{{ m.pub(papers[p.id], lines) }}{% endfor %}
+  </div>
+</section>
+{% endfor %}
+{% endblock %}

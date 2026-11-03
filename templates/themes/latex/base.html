@@ -1,0 +1,53 @@
+{% import "_macros.html" as m with context %}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ site.name }}{% endblock %}</title>
+  <meta name="description" content="{{ site.description }}">
+  <meta property="og:title" content="{{ self.title() }}">
+  <meta property="og:description" content="{{ site.description }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.url }}/{{ '' if page == 'index' else page + '.html' }}">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="themes/{{ theme }}/fonts/cmu-serif-500-roman.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="themes/{{ theme }}/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body class="page-{{ page }}">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="runninghead">
+    <a class="rh-name" href="index.html">{{ site.name }}</a>
+    <nav class="rh-nav" aria-label="Main">
+      {% for item in site.nav %}<a href="{{ item.page }}.html"{% if item.page == page %} aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><span class="tt-light">\lightmode</span><span class="tt-dark">\darkmode</span></button>
+    </nav>
+  </header>
+
+  <main id="main" class="paper">
+    {% block titleblock %}
+    <header class="titleblock">
+      <h1>{% block doctitle %}{% endblock %}</h1>
+      <p class="author">{{ site.name }}<sup><a href="#fn-contact" class="fnmark">*</a></sup></p>
+      <p class="affiliation">{{ site.affiliation }}</p>
+      <p class="date">Zurich, {{ year }}</p>
+    </header>
+    {% endblock %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footnotes">
+    <div class="paper">
+      <hr class="fnrule">
+      <p id="fn-contact"><sup>*</sup>&#8201;Contact:
+        {% for l in site.links %}<a href="{{ l.url }}">{{ l.label }}</a>{{ ", " if not loop.last else "." }}{% endfor %}
+        {% if cv_pdf %}Full CV as <a href="files/cv.pdf">PDF</a>.{% endif %}
+      </p>
+      <p><sup>&#8224;</sup>&#8201;Typeset in Computer Modern; compiled with Python &amp; Jinja2. &copy;&nbsp;{{ year }} {{ site.name }}.</p>
+      <p class="folio">{{ {"index": 1, "research": 2, "publications": 3, "teaching": 4, "cv": 5}[page] }}</p>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>

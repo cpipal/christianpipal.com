@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Research · {{ site.name }}{% endblock %}
+{% block content %}
+{% set ns = namespace(n=0) %}
+
+{% call nb.mdcell("page-head") %}
+<h1># Research</h1>
+<div class="lede prose">{{ research.intro | md }}</div>
+<nav class="toc" aria-label="On this page">
+  {% for l in research.lines %}<a href="#{{ l.key }}" class="line-{{ l.key }}"><span class="num">{{ l.number }}</span>{{ l.title }}</a>{% endfor %}
+  <a href="#projects"><span class="num">→</span>projects</a>
+</nav>
+{% endcall %}
+
+{% for l in research.lines %}
+<section class="line-section line-{{ l.key }}" id="{{ l.key }}">
+  {% call nb.mdcell() %}
+  <p class="kicker">{{ l.number }} · {{ l.kicker }}</p>
+  <h2>## {{ l.title }}</h2>
+  <div class="prose">{{ l.summary | md }}</div>
+  {% endcall %}
+
+  {% set ns.n = ns.n + 1 %}
+  {% call nb.code(ns.n) %}papers <span class="tok-o">|&gt;</span>
+  <span class="tok-f">filter</span>(line <span class="tok-o">==</span> <span class="tok-s">"{{ l.key }}"</span>) <span class="tok-o">|&gt;</span>
+  <span class="tok-f">group_by</span>(cluster){% endcall %}
+  {% call nb.out(ns.n, "tbl-out") %}
+  <p class="tbl-meta"># Groups: cluster [{{ l.clusters | length }}]</p>
+  <div class="clusters">
+    {% for c in l.clusters %}
+    <div class="cluster">
+      <h3><span class="tok-c">#</span> cluster: <span class="tok-s">"{{ c.title }}"</span> <span class="cl-n">[{{ c.papers | length }}]</span></h3>
+      <ul>{% for pid in c.papers %}{{ nb.pub_compact(papers[pid]) }}{% endfor %}</ul>
+    </div>
+    {% endfor %}
+  </div>
+  <p class="more-link"><a href="publications.html?line={{ l.key }}"><span class="tok-f">view</span>(papers, line = <span class="tok-s">"{{ l.key }}"</span>) <span aria-hidden="true">→</span></a></p>
+  {% endcall %}
+</section>
+{% endfor %}
+
+<section id="projects">
+  {% call nb.mdcell() %}
+  <h2>## Projects</h2>
+  {% endcall %}
+  {% set ns.n = ns.n + 1 %}
+  {% call nb.code(ns.n) %}<span class="tok-f">str</span>(projects, max.level = <span class="tok-n">1</span>){% endcall %}
+  {% call nb.out(ns.n, "str-out") %}
+  <p class="tbl-meta">List of {{ research.projects | length }}</p>
+  <div class="projects">
+    {% for p in research.projects %}
+    <article class="project{% if p.status == 'completed' %} completed{% endif %}" id="{{ p.key }}">
+      <p class="str-name"><span class="tok-o">$</span> {{ p.key }}<span class="tok-c"> :List of {{ 6 if p.team else 5 }}</span></p>
+      <h3>{{ p.title }}</h3>
+      <dl class="kv">
+        <dt>..$ funder</dt><dd>{{ p.funder }}</dd>
+        <dt>..$ period</dt><dd>{{ p.period }}{% if p.status == "completed" %} <span class="tok-c"># completed</span>{% endif %}</dd>
+        <dt>..$ role</dt><dd>{{ p.role }}</dd>
+        {% if p.team %}<dt>..$ team</dt><dd>{{ p.team }}</dd>{% endif %}
+      </dl>
+      <div class="prose">{{ p.summary | md }}</div>
+      {% if p.papers %}
+      <details class="project-papers">
+        <summary>..$ papers <span class="tok-c">: chr [1:{{ p.papers | length }}]</span></summary>
+        <ul>{% for pid in p.papers %}{{ nb.pub_compact(papers[pid]) }}{% endfor %}</ul>
+      </details>
+      {% endif %}
+    </article>
+    {% endfor %}
+  </div>
+  {% endcall %}
+</section>
+{% endblock %}

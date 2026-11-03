@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Publications · {{ site.name }}{% endblock %}
+{% block content %}
+
+{% call nb.mdcell("page-head") %}
+<h1># Publications</h1>
+<p class="lede">Edit the code cell to filter: click a research line, type into the string, then click a row to expand its abstract and key figure.</p>
+{% endcall %}
+
+<div class="cell code-cell filter-cell" role="search">
+  <div class="gutter gutter-in" aria-hidden="true">In&nbsp;[<span class="exec" id="filter-exec">1</span>]:</div>
+  <pre class="src"><code>papers <span class="tok-o">|&gt;</span>
+  <span class="tok-f">filter</span>(line <span class="tok-o">%in%</span> <span class="choices" role="group" aria-label="Filter by research line"><button type="button" class="filter-chip" data-line="all" aria-pressed="true"><span class="tok-f">everything</span>()</button><span class="sep"> | </span>{% for l in research.lines %}<button type="button" class="filter-chip line-{{ l.key }}" data-line="{{ l.key }}" aria-pressed="false"><span class="tok-s">"{{ l.key }}"</span></button>{% if not loop.last %}<span class="sep"> | </span>{% endif %}{% endfor %}</span>) <span class="tok-o">|&gt;</span>
+  <span class="tok-f">filter</span>(<span class="tok-f">str_detect</span>(text, <span class="tok-s">"<input type="search" id="pub-search" placeholder="…" aria-label="Search titles, authors and abstracts" autocomplete="off" spellcheck="false">"</span>)) <span class="tok-o">|&gt;</span>
+  <span class="tok-f">arrange</span>(<span class="tok-f">desc</span>(year)) <span class="tok-o">|&gt;</span>
+  <span class="tok-f">print</span>(abstracts = <button type="button" id="expand-all" class="bool" aria-pressed="false">FALSE</button>)</code></pre>
+</div>
+
+<div class="cell out-cell tbl-out pubs-out">
+  <div class="gutter gutter-out" aria-hidden="true">Out[<span id="filter-out">1</span>]:</div>
+  <div class="output">
+    <p class="filter-empty" hidden># A tibble: 0 × 7 <span class="tok-c"># no papers match</span></p>
+    {% for s in pubs.sections %}
+    <section class="pub-section" data-section="{{ s.key }}">
+      <h2 class="tbl-meta"># A tibble: <span class="count">{{ s["items"] | length }}</span> × 7 <span class="tok-c">— {{ s.title | lower }}</span></h2>
+      <div class="tbl pub-list">
+        {{ nb.tibble_head([("", "c-idx"), ("year", "c-year"), ("title / authors", "c-main"), ("venue", "c-venue"), ("line", "c-lines")]) }}
+        {% for p in s["items"] %}{{ nb.pub(papers[p.id], lines, loop.index) }}{% endfor %}
+      </div>
+    </section>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

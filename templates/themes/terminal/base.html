@@ -1,0 +1,49 @@
+{% import "_macros.html" as m %}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ site.name }}{% endblock %}</title>
+  <meta name="description" content="{{ site.description }}">
+  <meta property="og:title" content="{{ self.title() }}">
+  <meta property="og:description" content="{{ site.description }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.url }}/{{ '' if page == 'index' else page + '.html' }}">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="themes/{{ theme }}/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body class="page-{{ page }}">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html"><span class="p-user">cpipal</span><span class="c">@</span><span class="p-path">ikmz</span></a>
+      <nav class="nav" aria-label="Main">
+        {% for item in site.nav %}
+        {% set key = item.label[0] | lower %}
+        <a href="{{ item.page }}.html" data-key="{{ key }}"{% if item.page == page %} aria-current="page"{% endif %}>[<span class="k">{{ key }}</span>]{{ item.label[1:] | lower }}</a>
+        {% endfor %}
+        <button class="theme-toggle" type="button" aria-label="Toggle light/dark terminal" title="Toggle light/dark (l)">◐</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    {% block content %}{% endblock %}
+    <div class="eof">{{ m.prompt("", "~/" ~ ("" if page == "index" else page)) }}<span class="cursor" aria-hidden="true"></span></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <span><span class="c">#</span> © {{ year }} {{ site.name }} · {{ site.affiliation }}</span>
+      <span class="footer-links">{% for l in site.links %}<a href="{{ l.url }}">{{ l.label | lower }}</a>{% endfor %}</span>
+      <span class="c hint">keys: h r p t c · l = light/dark · / = search</span>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+  <script src="themes/{{ theme }}/terminal.js"></script>
+</body>
+</html>

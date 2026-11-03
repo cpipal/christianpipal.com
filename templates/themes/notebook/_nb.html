@@ -1,0 +1,85 @@
+{# Notebook building blocks: code cells, output cells, markdown cells, and the paper row. #}
+
+{% macro code(n) -%}
+<div class="cell code-cell">
+  <div class="gutter gutter-in" aria-hidden="true">In&nbsp;[<span class="exec">{{ n }}</span>]:</div>
+  <pre class="src"><code>{{ caller() }}</code></pre>
+</div>
+{%- endmacro %}
+
+{% macro out(n, cls="") -%}
+<div class="cell out-cell {{ cls }}">
+  <div class="gutter gutter-out" aria-hidden="true">{% if n %}Out[{{ n }}]:{% endif %}</div>
+  <div class="output">{{ caller() }}</div>
+</div>
+{%- endmacro %}
+
+{% macro mdcell(cls="") -%}
+<div class="cell md-cell {{ cls }}">
+  <div class="gutter" aria-hidden="true"></div>
+  <div class="markdown">{{ caller() }}</div>
+</div>
+{%- endmacro %}
+
+{# string literal, function name, comment helpers for hand-written code #}
+{% macro s(text) %}<span class="tok-s">"{{ text }}"</span>{% endmacro %}
+
+{% macro link_url(p) -%}
+{%- if p.doi %}https://doi.org/{{ p.doi }}{% elif p.preprint %}{{ p.preprint }}{% elif p.code %}{{ p.code }}{% elif p.data %}{{ p.data }}{% endif -%}
+{%- endmacro %}
+
+{# One paper as a tibble row that expands into abstract + key figure #}
+{% macro pub(p, lines, idx) %}
+<article class="pub" id="{{ p.id }}" data-lines="{{ p.lines | join(' ') }}" data-section="{{ p.section }}">
+  <details class="pub-more">
+    <summary>
+      <span class="c-idx">{{ idx }}</span>
+      <span class="c-year">{{ p.year or "NA" }}</span>
+      <span class="c-main">
+        <span class="c-title">{{ p.title }}</span>
+        <span class="c-authors">{{ p.authors | authors }}</span>
+      </span>
+      <span class="c-venue">
+        {%- if p.venue %}<em>{{ p.venue.split(" (")[0] }}</em>{% if p.details %}<span class="c-details">{{ p.details }}</span>{% endif %}
+        {%- elif p.preprint %}<span class="tok-s">"preprint"</span>
+        {%- else %}<span class="na">NA</span>{% endif -%}
+      </span>
+      <span class="c-lines">
+        {% for k in p.lines %}<span class="line-tag line-{{ k }}" title="{{ lines[k].kicker }}">{{ k }}</span>{% endfor %}
+        {% if p.award %}<span class="award" title="{{ p.award }}">★</span>{% endif %}
+      </span>
+    </summary>
+    <div class="pub-body">
+      <p class="pub-path"><span class="tok-c"># papers[["{{ p.id }}"]]</span></p>
+      {% if p.award %}<p class="award-line">★ {{ p.award }}</p>{% endif %}
+      {% if p.abstract %}<div class="abstract">{{ p.abstract | md }}</div>{% endif %}
+      {% if p.figure %}
+      <figure class="plot">
+        <div class="plot-head"><span>plot</span><span>{{ p.figure.split("/")[-1] }}</span></div>
+        <a href="{{ p.figure }}"><img src="{{ p.figure }}" alt="Key figure: {{ p.figure_caption or p.title }}" loading="lazy"></a>
+        {% if p.figure_caption %}<figcaption><span class="tok-c">#&gt;</span> {{ p.figure_caption | md(inline=true) }}</figcaption>{% endif %}
+      </figure>
+      {% endif %}
+      <p class="pub-links">
+        {% if p.doi %}<a href="https://doi.org/{{ p.doi }}"><span class="tok-f">doi</span>(<span class="tok-s">"{{ p.doi }}"</span>)</a>{% endif %}
+        {% if p.preprint %}<a href="{{ p.preprint }}"><span class="tok-f">preprint</span>()</a>{% endif %}
+        {% if p.pdf %}<a href="{{ p.pdf }}"><span class="tok-f">pdf</span>()</a>{% endif %}
+        {% if p.code %}<a href="{{ p.code }}"><span class="tok-f">code</span>()</a>{% endif %}
+        {% if p.data %}<a href="{{ p.data }}"><span class="tok-f">data</span>()</a>{% endif %}
+      </p>
+    </div>
+  </details>
+</article>
+{% endmacro %}
+
+{# Compact reference (research page, projects) #}
+{% macro pub_compact(p) %}
+<li class="pub-compact">
+  <a href="publications.html#{{ p.id }}">{{ p.title }}</a>
+  <span class="pc-meta">{% if p.venue %}{{ p.venue.split(" (")[0] }}{% elif p.preprint %}preprint{% endif %}{% if p.year %} · {{ p.year }}{% endif %}</span>
+</li>
+{% endmacro %}
+
+{% macro tibble_head(cols) %}
+<div class="tbl-row tbl-head" aria-hidden="true">{% for c in cols %}<span class="{{ c[1] }}">{{ c[0] }}</span>{% endfor %}</div>
+{% endmacro %}

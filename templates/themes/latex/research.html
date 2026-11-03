@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Research · {{ site.name }}{% endblock %}
+{% block doctitle %}Research Statement{% endblock %}
+{% block content %}
+<div class="abstract-env">
+  <h2 class="abstract-title">Abstract</h2>
+  <div class="abstract-text">{{ research.intro | md }}</div>
+</div>
+
+<nav class="toc" aria-label="Contents">
+  <h2 class="toc-title">Contents</h2>
+  <ol>
+    {% for l in research.lines %}{% set li = loop.index %}
+    <li><a href="#{{ l.key }}"><span class="toc-num">{{ li }}</span>{{ l.title }}</a>
+      <ol>{% for c in l.clusters %}<li><a href="#{{ l.key }}-{{ loop.index }}"><span class="toc-num">{{ li }}.{{ loop.index }}</span>{{ c.title }}</a></li>{% endfor %}</ol>
+    </li>
+    {% endfor %}
+    <li><a href="#projects"><span class="toc-num">{{ research.lines | length + 1 }}</span>Projects</a></li>
+  </ol>
+</nav>
+
+{% for l in research.lines %}{% set li = loop.index %}
+<section class="sec line-{{ l.key }}" id="{{ l.key }}">
+  <h2 class="sec-title">{{ l.title }}</h2>
+  <div class="thm definition">
+    <p><span class="thm-head">Definition {{ li }}</span> <span class="thm-note">({{ l.kicker }})</span>. {{ l.summary | md(inline=true) }}</p>
+  </div>
+  {% for c in l.clusters %}
+  <section class="subsec" id="{{ l.key }}-{{ loop.index }}">
+    <h3 class="subsec-title">{{ c.title }}</h3>
+    <ul class="reflist">{% for pid in c.papers %}{{ m.ref(pid) }}{% endfor %}</ul>
+  </section>
+  {% endfor %}
+  <p class="remark"><span class="thm-head-it">Remark.</span> Abstracts and key figures for all of these are in the <a href="publications.html?line={{ l.key }}">bibliography, filtered to this line</a>.</p>
+</section>
+{% endfor %}
+
+<section class="sec" id="projects">
+  <h2 class="sec-title">Projects</h2>
+  {% for p in research.projects %}
+  <div class="thm project" id="{{ p.key }}">
+    <p><span class="thm-head">Project {{ loop.index }}</span> <span class="thm-note">({{ p.funder }}, {{ p.period }}{% if p.status == "completed" %}; completed{% endif %})</span>.
+      <strong class="proj-title">{{ p.title }}.</strong></p>
+    <p class="proj-role"><em>Role:</em> {{ p.role }}.{% if p.team %} <em>Team:</em> {{ p.team }}.{% endif %}</p>
+    <div class="proj-summary">{{ p.summary | md }}</div>
+    {% if p.papers %}<p class="proj-out"><em>Outputs:</em>{% for pid in p.papers %} {{ m.c(pid) }}{% endfor %}.</p>{% endif %}
+  </div>
+  {% endfor %}
+</section>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}CV · {{ site.name }}{% endblock %}
+{% block content %}
+<header class="page-head cv-head">
+  <div>
+    {{ m.prompt("cat cv.yml", "~") }}
+    <h1>cv.yml</h1>
+  </div>
+  {% if cv_pdf %}<a class="button" href="files/cv.pdf">$ wget cv.pdf</a>{% endif %}
+</header>
+
+{% for s in cv.sections %}
+<section class="block">
+  <h2 class="yaml-key">{{ s.title | lower | replace(" ", "_") }}:</h2>
+  <ul class="rows">
+    {% for r in s.rows %}
+    <li><span class="when">{{ r.when or "—" }}</span><span class="what"><strong>{{ r.what }}</strong>{% if r.where %}<span class="where">{{ r.where }}</span>{% endif %}{% if r.note %}<span class="note"># {{ r.note }}</span>{% endif %}</span></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endfor %}
+
+<section class="block">
+  <h2 class="yaml-key">publications:</h2>
+  <p class="indent"><a href="publications.html">→ ls papers/ --all</a></p>
+</section>
+{% endblock %}

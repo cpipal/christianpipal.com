@@ -1,0 +1,51 @@
+# Short web CV. The full CV is the PDF at static/files/cv.pdf (link appears automatically once the file exists).
+
+sections:
+  - title: Academic positions
+    rows:
+      - {when: "2024–", what: "Senior Research and Teaching Associate", where: "Department of Communication and Media Research, University of Zurich"}
+      - {when: "2023–2024", what: "Research and Teaching Associate", where: "Department of Communication and Media Research, University of Zurich"}
+      - {when: "2026", what: "Visiting Researcher (CSS@LMU Fellowship)", where: "Department of Media and Communication, LMU Munich"}
+      - {when: "2023–", what: "Course Instructor", where: "FH Graubünden & University of Fribourg (IDCMI)"}
+      - {when: "2019–2023", what: "PhD Candidate", where: "Department of Political Science / Hot Politics Lab, University of Amsterdam"}
+      - {when: "2020–2021", what: "Visiting Researcher", where: "Computational Communication Lab, University of Vienna"}
+
+  - title: Education
+    rows:
+      - {when: "2024", what: "PhD in Political Science", where: "University of Amsterdam", note: "“Blueprints and fingerprints: Politicians' use of emotional appeals in European democracies.” Supervisors: Gijs Schumacher, Mariken van der Velden, Bert N. Bakker"}
+      - {when: "2015", what: "MA in European Union and Russian Studies", where: "University of Tartu"}
+      - {when: "2013", what: "BA in International Development Studies", where: "University of Vienna"}
+
+  - title: Grants
+    rows:
+      - {when: "2026", what: "IKMZ Community Grant (PI)", where: "Does Training Fix Bias? Student Coder Bias, Training Interventions, and LLM Validation"}
+      - {when: "2026", what: "GRC Short Grant (co-applicant)", where: "Perception of Politics during the Soccer World Cup in the US and Canada"}
+      - {when: "2025", what: "Swiss Federal Office of Communications, BAKOM (PI)", where: "Visual Tradcultures on TikTok"}
+      - {when: "2024", what: "IKMZ Community Grant (co-applicant)", where: "Mental Well-being in Academia"}
+
+  - title: Awards
+    rows:
+      - {when: "2024, 2026", what: "ICA Best Paper Award", where: "Political Communication"}
+      - {when: "2021", what: "ICA Best Paper Award", where: "Computational Communication Science"}
+      - {when: "2019", what: "ECPR Travel Grant"}
+
+  - title: Invited talks
+    rows:
+      - {when: "2026", what: "Political social media influencers in the 2024 US and 2025 German elections", where: "LMU Munich"}
+      - {when: "2026", what: "Using self-refinement to increase the accuracy of LLMs", where: "LMU Munich"}
+      - {when: "2024", what: "The political role of social media influencers", where: "Suisse Digital, Bern"}
+      - {when: "2024", what: "Parliamentary debates as networks of politicians and rhetoric styles", where: "Duitsland Instituut, Amsterdam"}
+      - {when: "2024", what: "Political social media influencers as political engagers?", where: "Vrije Universiteit Amsterdam"}
+      - {when: "2021", what: "Three gaps in computational text analysis methods", where: "Text as Data Research Group; Vrije Universiteit Amsterdam"}
+
+  - title: Service
+    rows:
+      - {when: "2025–2026", what: "Member, appointment committee", where: "IKMZ, University of Zurich"}
+      - {when: "ongoing", what: "Special issue editor, “From Memes to Movements”", where: "Frontiers in Computer Science / Communication / Political Science / Sociology"}
+      - {when: "2023", what: "Co-organizer, ICA Hackathon", where: "Toronto"}
+      - {when: "2020–2023", what: "Co-organizer, Hot Politics Lab Speaker Series", where: "University of Amsterdam"}
+      - {what: "Reviewer", where: "Political Analysis, Communication Methods and Measures, Computational Communication Research, The International Journal of Press/Politics, Political Psychology, Research and Politics, Party Politics, Scientific Reports, and others"}
+
+  - title: Media
+    rows:
+      - {when: "2023–", what: "Expert commentary on digital political communication and political influencers", where: "SRF, Watson, Blick, 20 Minuten"}

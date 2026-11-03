@@ -1,0 +1,70 @@
+{#- Imported "with context": numbers every paper once (bibliography order) and every key figure,
+    so citations [n] and "Figure n" are stable across pages. -#}
+{%- set cite = {} -%}
+{%- set fignum = {} -%}
+{%- set ns = namespace(i=0, f=0) -%}
+{%- for s in pubs.sections -%}{%- for p in s["items"] -%}
+  {%- set ns.i = ns.i + 1 -%}{%- set _ = cite.update({p.id: ns.i}) -%}
+  {%- if papers[p.id].figure -%}{%- set ns.f = ns.f + 1 -%}{%- set _ = fignum.update({p.id: ns.f}) -%}{%- endif -%}
+{%- endfor -%}{%- endfor -%}
+
+{% macro url(p) -%}
+{%- if p.doi %}https://doi.org/{{ p.doi }}{% elif p.preprint %}{{ p.preprint }}{% elif p.code %}{{ p.code }}{% elif p.data %}{{ p.data }}{% endif -%}
+{%- endmacro %}
+
+{# Inline citation: [12] #}
+{% macro c(pid) -%}
+<a class="cite" href="publications.html#{{ pid }}" title="{{ papers[pid].title }}">[{{ cite[pid] }}]</a>
+{%- endmacro %}
+
+{# Bibliography entry with expandable abstract + key figure (as a float) #}
+{% macro pub(p, lines) %}
+<article class="pub bibitem" id="{{ p.id }}" data-lines="{{ p.lines | join(' ') }}" data-section="{{ p.section }}">
+  <span class="biblabel">[{{ cite[p.id] }}]</span>
+  <div class="bibbody">
+    <p class="bibentry">
+      <span class="pub-authors">{{ p.authors | authors }}</span>{% if p.year %} ({{ p.year }}){% endif %}.
+      {% set u = url(p) %}<span class="bibtitle">{% if u %}<a href="{{ u }}">{{ p.title }}</a>{% else %}{{ p.title }}{% endif %}.</span>
+      {% if p.venue %}<em>{{ p.venue }}</em>{% if p.details %}, {{ p.details }}{% endif %}.{% elif p.preprint %}<em>Preprint</em>.{% endif %}
+      {% if p.award %}<sup class="award-mark">&#8224;</sup>{% endif %}
+    </p>
+    <p class="biblinks">
+      {% if p.doi %}<a href="https://doi.org/{{ p.doi }}">doi:{{ p.doi }}</a>{% endif %}
+      {% if p.preprint %}<a href="{{ p.preprint }}">preprint</a>{% endif %}
+      {% if p.pdf %}<a href="{{ p.pdf }}">pdf</a>{% endif %}
+      {% if p.code %}<a href="{{ p.code }}">code</a>{% endif %}
+      {% if p.data %}<a href="{{ p.data }}">data</a>{% endif %}
+    </p>
+    <span class="marginnote">
+      {% if p.award %}<span class="award"><sup>&#8224;</sup>&#8201;{{ p.award }}.</span>{% endif %}
+      {% for k in p.lines %}<span class="linetag line-{{ k }}">{{ lines[k].kicker }}</span>{% endfor %}
+    </span>
+    {% if p.abstract or p.figure %}
+    <details class="pub-more">
+      <summary>{% if p.abstract %}Abstract{% endif %}{% if p.abstract and p.figure %} &amp; {% endif %}{% if p.figure %}Figure&nbsp;{{ fignum[p.id] }}{% endif %}</summary>
+      <div class="pub-more-body">
+        {% if p.abstract %}<div class="abstract"><span class="abs-label">Abstract.</span> {{ p.abstract | md }}</div>{% endif %}
+        {% if p.figure %}
+        <figure class="float">
+          <a href="{{ p.figure }}"><img src="{{ p.figure }}" alt="Key figure: {{ p.figure_caption or p.title }}" loading="lazy"></a>
+          <figcaption><span class="figlabel">Figure {{ fignum[p.id] }}:</span> {{ (p.figure_caption or p.title) | md(inline=true) }}</figcaption>
+        </figure>
+        {% endif %}
+      </div>
+    </details>
+    {% endif %}
+  </div>
+</article>
+{% endmacro %}
+
+{# Short reference used inside research lines / projects #}
+{% macro ref(pid) %}{% set p = papers[pid] %}
+<li class="ref"><a class="cite" href="publications.html#{{ pid }}">[{{ cite[pid] }}]</a>
+  <span><a href="publications.html#{{ pid }}">{{ p.title }}</a>{% if p.year %} ({{ p.year }}){% endif %}{% if p.venue %}, <em>{{ p.venue.split(" (")[0] }}</em>{% elif p.preprint %}, <em>preprint</em>{% endif %}.</span>
+</li>
+{% endmacro %}
+
+{# Lower-case the first letter for mid-sentence use, but leave acronyms ("LLMs", "AI") alone #}
+{% macro lc(t) -%}
+{%- for w in t.split(" ") -%}{{ " " if not loop.first }}{{ w if (w[1:2].isupper() or w[:1] == w[:1].lower()) else w[:1].lower() ~ w[1:] }}{%- endfor -%}
+{%- endmacro %}

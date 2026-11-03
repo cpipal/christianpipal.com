@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block titleblock %}
+<header class="titleblock">
+  <h1>{{ site.name }}<sup><a href="#fn-contact" class="fnmark">*</a></sup></h1>
+  <p class="author">{{ site.role }}</p>
+  <p class="affiliation">{{ site.affiliation }}</p>
+  <p class="date">Zurich, {{ year }}</p>
+</header>
+{% endblock %}
+
+{% block content %}
+<div class="abstract-env">
+  <figure class="marginfig portrait">
+    <img src="{{ site.photo }}" alt="Portrait of {{ site.name }}">
+    <figcaption><span class="figlabel">Figure 0:</span> The author.</figcaption>
+  </figure>
+  <h2 class="abstract-title">Abstract</h2>
+  <div class="abstract-text">{{ site.bio | md }}</div>
+  <p class="keywords"><span class="kw-label">Keywords:</span>
+    {%- for l in research.lines %} {{ m.lc(l.title) }}{{ ";" if not loop.last else "." }}{% endfor %}</p>
+</div>
+
+<section class="sec">
+  <h2 class="sec-title" id="research">Research</h2>
+  <p>My work is organised along three lines, each formalised below. A full account with all references is in the <a href="research.html">research statement</a>.</p>
+  {% for l in research.lines %}
+  <div class="thm definition line-{{ l.key }}">
+    <p><span class="thm-head">Definition {{ loop.index }}</span> <span class="thm-note">({{ l.kicker }}: <a href="research.html#{{ l.key }}">{{ l.title }}</a>).</span>
+    {{ l.summary | md(inline=true) }}</p>
+    <p class="thm-cases">It comprises
+    {%- for c in l.clusters %} ({{ "i ii iii iv v vi".split()[loop.index0] }}) {{ m.lc(c.title) }}{% for pid in c.papers %} {{ m.c(pid) }}{% endfor %}{{ "," if not loop.last else "." }}{% endfor %}</p>
+  </div>
+  {% endfor %}
+</section>
+
+<section class="sec">
+  <h2 class="sec-title">Selected recent work</h2>
+  <div class="bibliography">
+    {% for pid in site.featured %}{{ m.pub(papers[pid], lines) }}{% endfor %}
+  </div>
+  <p class="qed-line"><a href="publications.html">Full bibliography</a> <span class="qed">&#8718;</span></p>
+</section>
+
+<section class="sec">
+  <h2 class="sec-title">Current projects</h2>
+  <dl class="description">
+    {% for p in research.projects if p.status == "ongoing" %}
+    <dt><a href="research.html#{{ p.key }}">{{ p.title }}</a></dt>
+    <dd>{{ p.funder }}, {{ p.period }}. <em>{{ p.role }}.</em></dd>
+    {% endfor %}
+  </dl>
+</section>
+
+<section class="sec">
+  <h2 class="sec-title">News</h2>
+  <ul class="newslist">
+    {% for n in site.news %}<li><span class="tt">{{ n.date }}</span> {{ n.text | md(inline=true) }}</li>{% endfor %}
+  </ul>
+</section>
+{% endblock %}

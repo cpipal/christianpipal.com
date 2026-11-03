@@ -1,0 +1,294 @@
+/* Theme "latex": the site as a typeset article. Computer Modern Unicode (computer-modern@0.1.3, SIL OFL). */
+
+@font-face { font-family: "CMU Serif"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/cmu-serif-500-roman.woff2") format("woff2"); }
+@font-face { font-family: "CMU Serif"; font-style: italic; font-weight: 400; font-display: swap; src: url("fonts/cmu-serif-500-italic.woff2") format("woff2"); }
+@font-face { font-family: "CMU Serif"; font-style: normal; font-weight: 700; font-display: swap; src: url("fonts/cmu-serif-700-roman.woff2") format("woff2"); }
+@font-face { font-family: "CMU Serif"; font-style: italic; font-weight: 700; font-display: swap; src: url("fonts/cmu-serif-700-italic.woff2") format("woff2"); }
+@font-face { font-family: "CMU Typewriter Text"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/cmu-typewriter-text-500-roman.woff2") format("woff2"); }
+
+/* ------------------------------------------------------------------ tokens */
+:root {
+  --paper: #fdfcf7;
+  --ink: #141414;
+  --muted: #5b5a55;
+  --rule: #1d1d1b;
+  --soft: #e7e4da;
+  --link: #1f3d99;      /* hyperref: urlcolor=blue!60!black */
+  --cite: #8b1a1a;      /* citecolor */
+  --fig-bg: #ffffff;
+  --serif: "CMU Serif", "Latin Modern Roman", "Computer Modern", Georgia, serif;
+  --tt: "CMU Typewriter Text", "Latin Modern Mono", ui-monospace, Menlo, monospace;
+  --col: 41rem;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #1b1a17; --ink: #e9e5d9; --muted: #a9a496; --rule: #d9d4c5; --soft: #34322c;
+    --link: #a5b8ff; --cite: #f0a597; --fig-bg: #f4f2ec; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #1b1a17; --ink: #e9e5d9; --muted: #a9a496; --rule: #d9d4c5; --soft: #34322c;
+  --link: #a5b8ff; --cite: #f0a597; --fig-bg: #f4f2ec; color-scheme: dark;
+}
+
+/* ------------------------------------------------------------------ base */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 24px; }
+html:has(.page-publications) { scroll-padding-top: 90px; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 19px/1.5 var(--serif);
+  font-kerning: normal; font-variant-ligatures: common-ligatures; text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  counter-reset: sec;
+}
+@media (max-width: 600px) { body { font-size: 17.5px; } }
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+p { margin: 0 0 0.75em; }
+h1, h2, h3 { font-weight: 700; margin: 0; line-height: 1.25; }
+img { max-width: 100%; }
+.tt, code { font-family: var(--tt); font-size: 0.92em; }
+:focus-visible { outline: 1px dotted var(--ink); outline-offset: 3px; }
+::selection { background: var(--soft); }
+.skip { position: absolute; left: -999px; }
+.skip:focus { left: 8px; top: 8px; background: var(--paper); padding: 6px 10px; z-index: 10; }
+
+.paper { max-width: var(--col); margin: 0 auto; padding: 0 20px; position: relative; }
+main.paper { text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+
+/* ------------------------------------------------------------------ running head */
+.runninghead {
+  max-width: var(--col); margin: 0 auto; padding: 14px 20px 6px;
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 18px;
+  font-variant: small-caps; letter-spacing: 0.03em; font-size: 0.92em;
+  border-bottom: 0.5px solid var(--rule);
+}
+.rh-name { color: var(--ink); }
+.rh-nav { display: flex; flex-wrap: wrap; gap: 2px 14px; align-items: baseline; }
+.rh-nav a { color: var(--muted); text-transform: lowercase; }
+.rh-nav a:hover { color: var(--ink); text-decoration: none; }
+.rh-nav a[aria-current="page"] { color: var(--ink); }
+.rh-nav a[aria-current="page"]::before { content: "\2023\2009"; }
+.theme-toggle {
+  font: 0.78em var(--tt); font-variant: normal; letter-spacing: 0; color: var(--muted);
+  background: none; border: 0; padding: 0; cursor: pointer;
+}
+.theme-toggle:hover { color: var(--ink); }
+.tt-light { display: none; }
+:root[data-theme="dark"] .tt-light { display: inline; }
+:root[data-theme="dark"] .tt-dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .tt-light { display: inline; }
+  :root:not([data-theme]) .tt-dark { display: none; }
+}
+
+/* ------------------------------------------------------------------ title block (\maketitle) */
+.titleblock { text-align: center; margin: 3.2rem 0 2.2rem; hyphens: none; }
+.titleblock h1 { font-size: 1.75em; font-weight: 400; letter-spacing: 0.005em; margin-bottom: 0.9rem; }
+.titleblock .author { font-size: 1.15em; margin: 0 0 0.15rem; }
+.titleblock .affiliation { font-style: italic; margin: 0 0 0.15rem; }
+.titleblock .date { margin: 0.6rem 0 0; }
+.fnmark { color: var(--ink); font-size: 0.7em; }
+.titleblock h1 .fnmark { font-size: 0.45em; vertical-align: super; }
+.cv-title h1 { font-size: 2em; margin-bottom: 0.5rem; }
+.cv-sub { margin: 0 0 0.2rem; font-size: 0.9em; }
+.cv-sub a { color: var(--link); }
+.pdf-link { font-family: var(--tt); font-size: 0.95em; }
+
+/* ------------------------------------------------------------------ abstract */
+.abstract-env { margin: 0 2.4em 2rem; font-size: 0.9em; }
+.abstract-env::after { content: ""; display: table; clear: both; }
+.abstract-title { text-align: center; font-size: 1em; margin-bottom: 0.4em; }
+.abstract-text p { text-indent: 1.5em; margin: 0; }
+.abstract-text p:first-child { text-indent: 0; }
+.keywords { margin-top: 0.8em; text-indent: 0; text-align: left; }
+.kw-label { font-weight: 700; }
+@media (max-width: 600px) { .abstract-env { margin: 0 0.6em 1.6rem; } }
+
+/* portrait: a margin figure on wide screens, a small float otherwise */
+.marginfig { margin: 0; }
+.portrait { float: right; width: 120px; margin: 0.3em 0 0.6em 1.1em; }
+.portrait img { display: block; width: 100%; height: auto; filter: grayscale(0.15); }
+.portrait figcaption, .marginnote { font-size: 0.8rem; line-height: 1.35; color: var(--muted); text-align: left; hyphens: none; }
+.portrait figcaption { margin-top: 0.4em; font-size: 0.8rem; }
+.figlabel { font-weight: 700; color: var(--ink); }
+
+/* ------------------------------------------------------------------ sections (\section, \subsection) */
+.sec { counter-increment: sec; counter-reset: subsec; margin-top: 2.4rem; }
+.sec-title { font-size: 1.38em; margin-bottom: 0.7em; text-align: left; hyphens: none; }
+.sec-title::before { content: counter(sec); display: inline-block; min-width: 1.6em; }
+.subsec { counter-increment: subsec; margin-top: 1.4rem; }
+.subsec-title { font-size: 1.12em; margin-bottom: 0.4em; text-align: left; hyphens: none; }
+.subsec-title::before { content: counter(sec) "." counter(subsec); display: inline-block; min-width: 2.4em; }
+.sec-title .count { font-weight: 400; font-size: 0.7em; color: var(--muted); }
+.sec-title .count:not(:empty)::before { content: "("; }
+.sec-title .count:not(:empty)::after { content: ")"; }
+
+/* theorem-like environments (amsthm "definition" style: upright body) */
+.thm { margin: 1em 0 1.1em; }
+.thm p { margin: 0 0 0.35em; }
+.thm-head { font-weight: 700; }
+.thm-head-it { font-style: italic; }
+.thm-note a { color: inherit; }
+.thm-note a:hover { color: var(--link); }
+.thm-cases { font-size: 0.95em; }
+.remark { font-size: 0.95em; margin-top: 1em; }
+.proj-title { font-weight: 700; }
+.proj-role, .proj-out { font-size: 0.93em; }
+.proj-summary p { margin: 0 0 0.35em; }
+.thm.project + .thm.project { border-top: 0.5px solid var(--soft); padding-top: 1em; }
+
+a.cite { color: var(--cite); white-space: nowrap; }
+
+/* table of contents */
+.toc { margin: 0 0 2.2rem; text-align: left; hyphens: none; }
+.toc-title { font-size: 1.38em; margin-bottom: 0.6em; }
+.toc ol { list-style: none; margin: 0; padding: 0; }
+.toc > ol > li { margin-top: 0.55em; font-weight: 700; }
+.toc ol ol { font-weight: 400; padding-left: 1.6em; }
+.toc ol ol li { margin-top: 0.15em; }
+.toc a { color: var(--ink); }
+.toc a:hover { color: var(--link); }
+.toc-num { display: inline-block; min-width: 1.6em; }
+.toc ol ol .toc-num { min-width: 2.4em; }
+
+/* reference lists inside research lines */
+.reflist { list-style: none; margin: 0; padding: 0; }
+.ref { display: grid; grid-template-columns: 2.6em minmax(0, 1fr); gap: 0 0.2em; margin: 0 0 0.35em; font-size: 0.95em; text-align: left; }
+.ref span a { color: var(--ink); }
+.ref span a:hover { color: var(--link); }
+
+/* description list / itemize */
+.description { margin: 0; }
+.description dt { font-weight: 700; margin-top: 0.6em; text-align: left; }
+.description dt a { color: var(--ink); }
+.description dt a:hover { color: var(--link); }
+.description dd { margin: 0 0 0 1.5em; }
+.newslist { margin: 0; padding-left: 1.4em; list-style: none; }
+.newslist li { position: relative; margin-bottom: 0.4em; }
+.newslist li::before { content: "\2022"; position: absolute; left: -1.1em; }
+.newslist .tt { color: var(--muted); margin-right: 0.3em; }
+.qed-line { text-align: right; margin-top: 0.8em; }
+.qed { margin-left: 0.4em; }
+
+/* ------------------------------------------------------------------ bibliography */
+.bibliography { margin-top: 0.4em; }
+.bibitem { display: grid; grid-template-columns: 2.6em minmax(0, 1fr); gap: 0 0.2em; padding: 0.45em 0; }
+.bibitem[hidden] { display: none; }
+.bibitem:target .biblabel { color: var(--cite); }
+.bibitem:target .biblabel::before { content: "\2192\2009"; margin-left: -1.2em; }
+.biblabel { text-align: left; }
+.bibbody { position: relative; min-width: 0; }
+.bibentry { margin: 0; }
+.pub-authors strong { font-weight: 400; font-variant: small-caps; letter-spacing: 0.02em; }
+.bibtitle a { color: var(--ink); }
+.bibtitle a:hover { color: var(--link); }
+.award-mark { color: var(--cite); }
+.biblinks { margin: 0.1em 0 0; font: 0.78em var(--tt); display: flex; flex-wrap: wrap; gap: 0 1.1em; text-align: left; }
+.biblinks:empty { display: none; }
+.biblinks a { overflow-wrap: anywhere; }
+
+.marginnote { display: block; margin-top: 0.2em; }
+.marginnote:empty, .marginnote:not(:has(*)) { display: none; }
+.marginnote .award { display: block; color: var(--cite); }
+.linetag { font-variant: small-caps; letter-spacing: 0.03em; }
+.linetag + .linetag::before { content: "\00A0\00B7\00A0"; }
+
+/* expandable abstract + float */
+.pub-more { margin-top: 0.3em; }
+.pub-more summary {
+  display: inline-block; cursor: pointer; list-style: none; user-select: none;
+  font-variant: small-caps; letter-spacing: 0.03em; color: var(--cite); font-size: 0.92em;
+}
+.pub-more summary::-webkit-details-marker { display: none; }
+.pub-more summary::before { content: "\25B8\2009"; display: inline-block; transition: transform .15s; }
+.pub-more[open] summary::before { transform: rotate(90deg); }
+.pub-more-body { margin: 0.6em 0 0.8em; }
+.abstract { font-size: 0.9em; margin: 0 1.2em 1em; }
+.abstract p { margin: 0; text-indent: 1.5em; }
+.abstract p:first-of-type { display: inline; text-indent: 0; }
+.abs-label { font-weight: 700; }
+figure.float { margin: 1.2em 0 0.4em -2.8em; padding: 0.9em 0 0; border-top: 0.5px solid var(--rule); text-align: center; }
+figure.float img { display: block; width: 100%; height: auto; background: var(--fig-bg); }
+:root[data-theme="dark"] figure.float img { padding: 6px; border-radius: 2px; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) figure.float img { padding: 6px; border-radius: 2px; } }
+figure.float figcaption { font-size: 0.85em; margin: 0.7em auto 0; max-width: 92%; text-align: justify; hyphens: auto; text-align-last: center; }
+@media (max-width: 600px) {
+  .bibitem, .ref { grid-template-columns: 2.3em minmax(0, 1fr); }
+  figure.float { margin-left: -2.5em; }
+  .abstract { margin: 0 0 1em; }
+}
+
+/* Tufte-style margin notes on wide screens */
+@media (min-width: 1260px) {
+  .marginnote, .portrait {
+    float: right; clear: right; width: 13.5rem; margin: 0.15em -16rem 0.6em 0; position: relative;
+  }
+  .bibbody .marginnote { position: absolute; right: -16rem; top: 0.25em; margin: 0; float: none; }
+  .portrait { width: 12rem; margin-right: -15.5rem; margin-top: -0.2em; }
+}
+
+/* ------------------------------------------------------------------ publication filters */
+.filters {
+  position: sticky; top: 0; z-index: 3; background: var(--paper);
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 18px;
+  padding: 10px 0 8px; border-top: 0.5px solid var(--rule); border-bottom: 0.5px solid var(--rule);
+  margin-bottom: 0.4rem; text-align: left;
+}
+.chips { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; }
+.filter-label { font-style: italic; }
+.filter-chip {
+  font: inherit; font-variant: small-caps; letter-spacing: 0.03em; color: var(--muted);
+  background: none; border: 0; padding: 0 0 1px; cursor: pointer;
+}
+.filter-chip:hover { color: var(--ink); }
+.filter-chip[aria-pressed="true"] { color: var(--ink); box-shadow: inset 0 -1px 0 var(--ink); }
+.filter-right { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; flex: 1 1 14rem; min-width: 0; justify-content: flex-end; }
+.search-label { font: 0.8em var(--tt); color: var(--muted); }
+#pub-search {
+  font: 0.82em var(--tt); color: var(--ink); background: transparent;
+  border: 0; border-bottom: 0.5px solid var(--muted); border-radius: 0; padding: 2px 2px; min-width: 6rem; width: auto; flex: 0 1 12rem;
+}
+#pub-search:focus { outline: none; border-bottom-color: var(--ink); }
+.text-button { font: inherit; font-variant: small-caps; letter-spacing: 0.03em; color: var(--cite); background: none; border: 0; padding: 0; cursor: pointer; white-space: nowrap; }
+.filter-empty { margin-top: 1.5rem; }
+.pub-section[hidden] { display: none; }
+@media (max-width: 600px) {
+  .filters { position: static; }
+  .filter-right { justify-content: flex-start; }
+  #pub-search { flex: 1 1 8rem; }
+  /* a narrow measure can't justify without rivers: go ragged-right like \raggedright */
+  main.paper, .abstract-env, .abstract { text-align: left; }
+  figure.float figcaption { text-align: left; text-align-last: auto; }
+}
+
+/* ------------------------------------------------------------------ tabular (booktabs) */
+.tabular { width: 100%; border-collapse: collapse; text-align: left; hyphens: none; }
+.tabular:not(.cv) { border-top: 1.2px solid var(--rule); border-bottom: 1.2px solid var(--rule); }
+.tabular td { padding: 0.35em 0; vertical-align: top; }
+.tabular:not(.cv) tr:first-child td { padding-top: 0.55em; }
+.tabular:not(.cv) tr:last-child td { padding-bottom: 0.55em; }
+.t-main { padding-right: 1.2em !important; }
+.t-main strong { font-weight: 400; }
+.tabular:not(.cv) .t-main strong { font-weight: 700; }
+.t-when { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums oldstyle-nums; }
+.note { font-size: 0.9em; color: var(--muted); }
+
+/* CV in the style of the LaTeX CV: small-caps section titles, \hfill dates */
+.cvsec { margin-top: 1.8rem; }
+.cvsec-title { font-size: 1.25em; font-weight: 400; font-variant: small-caps; letter-spacing: 0.03em; margin-bottom: 0.4em; }
+.tabular.cv td { padding: 0.2em 0; }
+.tabular.cv .t-main strong { font-weight: 400; }
+
+/* ------------------------------------------------------------------ footnotes */
+.footnotes { margin-top: 4rem; padding-bottom: 88px; font-size: 0.8em; color: var(--ink); }
+.fnrule { width: 33%; margin: 0 0 0.6em; border: 0; border-top: 0.5px solid var(--rule); }
+.footnotes p { margin: 0 0 0.25em; text-align: left; }
+.folio { text-align: center !important; margin-top: 2.2em !important; font-size: 1.15em; }
+
+@media print {
+  .runninghead, .filters, .theme-toggle, #theme-switcher { display: none !important; }
+  .pub-more > .pub-more-body { display: block; }
+}

@@ -1,0 +1,56 @@
+{% macro link_url(p) -%}
+{%- if p.doi %}https://doi.org/{{ p.doi }}{% elif p.preprint %}{{ p.preprint }}{% elif p.code %}{{ p.code }}{% elif p.data %}{{ p.data }}{% endif -%}
+{%- endmacro %}
+
+{% macro prompt(cmd, path="~") -%}
+<div class="prompt"><span class="p-user">cpipal@ikmz</span>:<span class="p-path">{{ path }}</span>$ <span class="p-cmd">{{ cmd }}</span></div>
+{%- endmacro %}
+
+{% macro frame_title(title, extra="") -%}
+<div class="frame-title"><span class="fl">┌─</span> <span class="ft">{{ title }}</span> {% if extra %}<span class="fx">{{ extra }}</span>{% endif %}<span class="fr"></span></div>
+{%- endmacro %}
+
+{# Full publication entry; class/data hooks match static/js/main.js #}
+{% macro pub(p, lines) %}
+<article class="pub" id="{{ p.id }}" data-lines="{{ p.lines | join(' ') }}" data-section="{{ p.section }}">
+  <div class="pub-head">
+    <span class="pub-year">{{ p.year or "----" }}</span>
+    <div class="pub-body">
+      <h3 class="pub-title">{% set u = link_url(p) %}{% if u %}<a href="{{ u }}">{{ p.title }}</a>{% else %}{{ p.title }}{% endif %}</h3>
+      <p class="pub-authors">{{ p.authors | authors }}</p>
+      {% if p.venue or p.details %}<p class="pub-venue"><span class="c">#</span> {% if p.venue %}<em>{{ p.venue }}</em>{% endif %}{% if p.details %}{% if p.venue %}, {% endif %}{{ p.details }}{% endif %}</p>{% endif %}
+      <div class="pub-meta">
+        {% if p.award %}<span class="award">★ {{ p.award }}</span>{% endif %}
+        {% for k in p.lines %}<span class="line-tag line-{{ k }}">{{ lines[k].number }}_{{ lines[k].kicker | lower }}</span>{% endfor %}
+        {% if p.doi %}<a class="chip" href="https://doi.org/{{ p.doi }}">[doi]</a>{% endif %}
+        {% if p.preprint %}<a class="chip" href="{{ p.preprint }}">[preprint]</a>{% endif %}
+        {% if p.pdf %}<a class="chip" href="{{ p.pdf }}">[pdf]</a>{% endif %}
+        {% if p.code %}<a class="chip" href="{{ p.code }}">[code]</a>{% endif %}
+        {% if p.data %}<a class="chip" href="{{ p.data }}">[data]</a>{% endif %}
+      </div>
+    </div>
+  </div>
+  {% if p.abstract or p.figure %}
+  <details class="pub-more">
+    <summary><span class="sum-closed">[+]</span><span class="sum-open">[-]</span> cat {{ p.id }}/{% if p.abstract %}abstract.txt{% endif %}{% if p.abstract and p.figure %} &amp;&amp; open {% endif %}{% if p.figure %}{{ p.figure.split('/')[-1] }}{% endif %}</summary>
+    <div class="pub-more-body">
+      {% if p.abstract %}<div class="abstract">{{ p.abstract | md }}</div>{% endif %}
+      {% if p.figure %}
+      <figure>
+        <div class="fig-bar">── {{ p.figure.split('/')[-1] }} ──</div>
+        <a href="{{ p.figure }}"><img src="{{ p.figure }}" alt="Key figure: {{ p.figure_caption or p.title }}" loading="lazy"></a>
+        {% if p.figure_caption %}<figcaption><span class="c">#</span> {{ p.figure_caption | md(inline=true) }}</figcaption>{% endif %}
+      </figure>
+      {% endif %}
+    </div>
+  </details>
+  {% endif %}
+</article>
+{% endmacro %}
+
+{% macro pub_compact(p) %}
+<li class="pub-compact">
+  <span class="c">├─</span> <a href="publications.html#{{ p.id }}">{{ p.title }}</a>
+  <span class="pc-meta">{% if p.venue %}{{ p.venue.split(" (")[0] }}{% elif p.preprint %}preprint{% endif %}{% if p.year %} · {{ p.year }}{% endif %}</span>
+</li>
+{% endmacro %}

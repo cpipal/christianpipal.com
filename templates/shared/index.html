@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div class="portrait">
+    {% if site.photo %}<img src="{{ site.photo }}" alt="Portrait of {{ site.name }}" onerror="this.remove()">{% endif %}
+    <span class="initials" aria-hidden="true">{{ site.name.split()[0][0] }}{{ site.name.split()[-1][0] }}</span>
+  </div>
+  <div class="hero-text">
+    <p class="eyebrow">{{ site.role }}</p>
+    <h1>{{ site.name }}</h1>
+    <p class="affil">{{ site.affiliation }}</p>
+    <ul class="social">
+      {% for l in site.links %}<li><a href="{{ l.url }}">{{ m.icon(l.icon) }}<span>{{ l.label }}</span></a></li>{% endfor %}
+      <li><a href="cv.html">{{ m.icon("cv") }}<span>CV</span></a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="bio prose">
+  {{ site.bio | md }}
+</section>
+
+<section class="block">
+  <h2 class="section-title"><span class="num">01</span>Research</h2>
+  <div class="line-cards">
+    {% for l in research.lines %}
+    <a class="line-card line-{{ l.key }}" href="research.html#{{ l.key }}">
+      <span class="lc-num">{{ l.number }}</span>
+      <span class="lc-kicker">{{ l.kicker }}</span>
+      <span class="lc-title">{{ l.title }}</span>
+      <span class="lc-more">{{ l.clusters | map(attribute="title") | join(" · ") }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="block">
+  <h2 class="section-title"><span class="num">02</span>Selected recent work</h2>
+  <div class="pub-list">
+    {% for pid in site.featured %}{{ m.pub(papers[pid], lines) }}{% endfor %}
+  </div>
+  <p class="more-link"><a href="publications.html">All publications {{ m.icon("arrow") }}</a></p>
+</section>
+
+<section class="block two-col">
+  <div>
+    <h2 class="section-title"><span class="num">03</span>Current projects</h2>
+    <ul class="project-mini">
+      {% for p in research.projects if p.status == "ongoing" %}
+      <li><a href="research.html#{{ p.key }}">{{ p.title }}</a><span>{{ p.funder }} · {{ p.role }}</span></li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div>
+    <h2 class="section-title"><span class="num">04</span>News</h2>
+    <ul class="news">
+      {% for n in site.news %}<li><time>{{ n.date }}</time><span>{{ n.text | md(inline=true) }}</span></li>{% endfor %}
+    </ul>
+  </div>
+</section>
+{% endblock %}

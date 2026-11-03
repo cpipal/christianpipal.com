@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% import "_plot.html" as plot with context %}
+{% block title %}Publications · {{ site.name }}{% endblock %}
+{% block content %}
+<header class="page-head">
+  <p class="eyebrow">publications.html</p>
+  <h1>Publications</h1>
+  <p class="lede">Select a point or an entry to read its abstract and see its key figure. Filter by research line using the legend or the chips, or search titles, authors and abstracts.</p>
+</header>
+
+{{ plot.plot_figure(1, "pubs", "All entries by year and research line. Points fade when they are filtered out below.") }}
+
+<div class="filters" role="search">
+  <div class="chips" role="group" aria-label="Filter by research line">
+    <button type="button" class="filter-chip" data-line="all" aria-pressed="true">all</button>
+    {% for l in research.lines %}
+    <button type="button" class="filter-chip line-{{ l.key }}" data-line="{{ l.key }}" aria-pressed="false"><span class="dot"></span>{{ l.kicker | lower }}</button>
+    {% endfor %}
+  </div>
+  <div class="filter-right">
+    <input type="search" id="pub-search" placeholder="grep…" aria-label="Search publications">
+    <button type="button" class="text-button" id="expand-all">Expand all</button>
+  </div>
+</div>
+<p class="filter-empty" hidden>No publications match.</p>
+
+{% for s in pubs.sections %}
+<section class="pub-section" data-section="{{ s.key }}">
+  <h2 class="section-title">{{ s.title }} <span class="count"></span></h2>
+  <div class="pub-list">
+    {% for p in s["items"] %}{{ m.pub(papers[p.id], lines) }}{% endfor %}
+  </div>
+</section>
+{% endfor %}
+{% endblock %}
+{% block data %}{{ plot.plot_data() }}{% endblock %}
+{% block scripts %}<script src="themes/{{ theme }}/plot.js"></script>{% endblock %}

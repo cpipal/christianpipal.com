@@ -1,0 +1,56 @@
+{% import "_macros.html" as m %}{% import "_nb.html" as nb %}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ site.name }}{% endblock %}</title>
+  <meta name="description" content="{{ site.description }}">
+  <meta property="og:title" content="{{ self.title() }}">
+  <meta property="og:description" content="{{ site.description }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.url }}/{{ '' if page == 'index' else page + '.html' }}">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="themes/{{ theme }}/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body class="page-{{ page }}">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="toolbar">
+    <div class="toolbar-top">
+      <a class="nb-name" href="index.html">
+        <span class="nb-logo" aria-hidden="true">{ }</span>
+        <span>christianpipal<span class="ext">.ipynb</span></span>
+      </a>
+      <span class="checkpoint">Last checkpoint: {{ year }} · autosaved</span>
+      <div class="kernel">
+        <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">{{ m.icon("theme") }}</button>
+        <span class="kernel-name">R 4.4</span>
+        <span class="kernel-dot" aria-hidden="true"></span>
+        <span class="kernel-state">idle</span>
+      </div>
+    </div>
+    <nav class="tabs" aria-label="Main">
+      {% for item in site.nav %}
+      <a href="{{ item.page }}.html"{% if item.page == page %} aria-current="page"{% endif %}>{{ item.label | lower }}<span class="ext">.ipynb</span></a>
+      {% endfor %}
+    </nav>
+  </header>
+
+  <main id="main" class="notebook">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="statusbar">
+    <div class="statusbar-inner">
+      <span>© {{ year }} {{ site.name }}</span>
+      <span class="sb-mid">{{ site.affiliation }}</span>
+      <span class="sb-links">{% for l in site.links %}<a href="{{ l.url }}">{{ l.label }}</a>{% endfor %}</span>
+    </div>
+  </footer>
+  <script src="themes/{{ theme }}/nb.js"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+# How the research is organized.
+#
+#   lines     the three research lines (what / how / about the field), each with thematic clusters.
+#             A paper listed in a cluster is tagged with that line on the Publications page,
+#             so this file is the single place where papers are sorted. A paper can sit in several lines.
+#   projects  funded projects (containers with funder, role, team, period) and their papers.
+#
+# DRAFT texts — rewrite in your own voice.
+
+intro: >-
+  My work sits at the intersection of political communication and computational social science.
+  I organize it along three lines: **what** is changing in political communication, **how** we can
+  measure it, and **how our discipline** produces evidence about it. Most of it is funded through
+  the projects listed further below.
+
+lines:
+  - key: substance
+    number: "01"
+    kicker: Substantive
+    title: Political communication on platforms
+    summary: >-
+      Who speaks about politics online, and with what effect? I study the communicators who now shape
+      political attention alongside parties and newsrooms — social media influencers, news influencers,
+      creators of "tradculture" content — as well as how political elites adapt their tone and style,
+      and how generative AI is entering political debate and the information people receive.
+    clusters:
+      - title: Influencers and new political communicators
+        papers: [learning-political, news-influencers-chapter, past-perfect, memes-editorial]
+      - title: Political elites — tone, emotion and style
+        papers: [tone-politics, dances-duets, ai-parliaments]
+      - title: AI and the information environment
+        papers: [nice-try-chatgpt, biased-provision, fact-checks-llms]
+      - title: Public opinion and conflict
+        papers: [world-cup, nato]
+
+  - key: methods
+    number: "02"
+    kicker: Methodological
+    title: Measuring communication with AI
+    summary: >-
+      Much of what we want to know about political communication sits in millions of posts, speeches and
+      videos. I develop and validate computational tools to measure it — joint sentiment-topic models,
+      multimodal emotion recognition, and, increasingly, large language models as annotation instruments —
+      with a focus on when these tools can be trusted, and at what cost.
+    clusters:
+      - title: LLMs as measurement instruments
+        papers: [self-correction, batching]
+      - title: Text as data and sentiment
+        papers: [jst, sentiment-encyclopedia, text-as-data-polpsych, euspeech, sentitopics]
+      - title: Multimodal analysis of video and images
+        papers: [mexca, dances-duets, past-perfect]
+
+  - key: discipline
+    number: "03"
+    kicker: Meta-science
+    title: How our field produces evidence
+    summary: >-
+      I also study our own discipline: whose languages our tools work for, how many defensible analytic
+      paths a single research question allows, and how editorial rules shape whose work gets cited.
+      This line connects methodological choices to questions of validity, openness and inclusion.
+    clusters:
+      - title: Validity and language bias in computational research
+        papers: [three-gaps, grounding, multilingual-survey, software-tools-data]
+      - title: Analytic flexibility and open science
+        papers: [multiverse-news, tone-politics]
+      - title: Publishing and citation practices
+        papers: [citation-limits]
+
+projects:
+  - key: snf-influencers
+    title: "Political Social Media Influencers: Their Role and Influence on Youth Political Engagement"
+    funder: Swiss National Science Foundation (SNSF)
+    period: "2024–2028"
+    role: Project coordination; lead of the work package on online political discourse   # TODO check wording
+    team: "PI: Frank Esser · with Eva-Maria Vogel, Morgan Wack"   # TODO check
+    status: ongoing
+    summary: >-
+      Can political social media influencers re-engage young people with politics? The project maps who political
+      influencers on Instagram, TikTok and YouTube are and what they post, traces how their frames and vocabulary
+      travel into their audiences' political conversations, and estimates their effects on political engagement
+      with a panel experiment combined with donated digital trace data. Studies so far cover Austrian and German
+      influencers and the 2024 U.S. election.
+    papers: [learning-political, news-influencers-chapter]
+
+  - key: bakom-tradculture
+    title: "Visual Tradcultures on TikTok (VisTrad)"
+    funder: Swiss Federal Office of Communications (BAKOM)
+    period: "2025–2027"
+    role: Co-lead with Seraina Tarnutzer-Zigerli (University of Fribourg)
+    status: ongoing
+    summary: >-
+      "Tradwife" and tradculture content on TikTok stages traditional femininity in nostalgic, aesthetically polished
+      videos. VisTrad studies how this content depicts women, and how young people in Switzerland perceive it. It
+      combines computational visual analysis (object detection, image-text models, multimodal LLM coding) of
+      accounts from five countries with qualitative analysis, focus groups across the German-, French- and
+      Italian-speaking regions, and a survey experiment on gender-role attitudes.
+    papers: [past-perfect]
+
+  - key: training-bias
+    title: "Does Training Fix Bias? Student Coder Bias, Training Interventions, and LLM Validation"
+    funder: IKMZ Community Grant, University of Zurich
+    period: "2026"
+    role: Principal investigator
+    status: ongoing
+    summary: >-
+      Human-coded data are the benchmark against which LLM annotations are validated. This project tests whether
+      student coders carry systematic biases into that benchmark, and whether coder training removes them.
+
+  - key: world-cup-politics
+    title: Perception of Politics during the 2026 Soccer World Cup
+    funder: GRC Short Grant
+    period: "2026"
+    role: Co-applicant
+    status: ongoing
+    summary: >-
+      A two-wave panel survey fielded around the 2026 FIFA World Cup in the US and Canada, studying when citizens
+      see politics in sports and how partisanship shapes those judgments.
+    papers: [world-cup]
+
+  - key: phd
+    title: "Blueprints and Fingerprints: Politicians' Use of Emotional Appeals in European Democracies"
+    funder: PhD project, University of Amsterdam
+    period: "2019–2024"
+    role: PhD candidate (supervised by Gijs Schumacher, Mariken van der Velden and Bert Bakker)
+    status: completed
+    summary: >-
+      My dissertation measured the emotional tone of political speech across European parliaments, leaders'
+      speeches and manifestos over three decades, and developed the sentiment-topic models and multimodal tools
+      used to do so.
+    papers: [tone-politics, jst, mexca, euspeech]

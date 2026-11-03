@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Publications · {{ site.name }}{% endblock %}
+{% block content %}
+<header class="page-head">
+  <h1>Publications</h1>
+  <p class="lede">Click on an entry to read its abstract and see its key figure. Filter by research line or search titles, authors and abstracts.</p>
+</header>
+
+<div class="filters" role="search">
+  <div class="chips" role="group" aria-label="Filter by research line">
+    <button type="button" class="filter-chip" data-line="all" aria-pressed="true">All</button>
+    {% for l in research.lines %}
+    <button type="button" class="filter-chip line-{{ l.key }}" data-line="{{ l.key }}" aria-pressed="false"><span class="dot"></span>{{ l.kicker }}</button>
+    {% endfor %}
+  </div>
+  <div class="filter-right">
+    <input type="search" id="pub-search" placeholder="Search…" aria-label="Search publications">
+    <button type="button" class="text-button" id="expand-all">Expand all</button>
+  </div>
+</div>
+<p class="filter-empty" hidden>No publications match.</p>
+
+{% for s in pubs.sections %}
+<section class="pub-section" data-section="{{ s.key }}">
+  <h2 class="section-title">{{ s.title }} <span class="count"></span></h2>
+  <div class="pub-list">
+    {% for p in s["items"] %}{{ m.pub(papers[p.id], lines) }}{% endfor %}
+  </div>
+</section>
+{% endfor %}
+{% endblock %}

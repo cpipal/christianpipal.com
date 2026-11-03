@@ -1,0 +1,29 @@
+intro: >-
+  I teach political communication, computational methods and research design at the University of Zurich,
+  and introductory programming for social scientists at summer and spring schools.
+
+groups:
+  - title: Graduate
+    items:
+      - {title: "From Likes to Votes: Political Social Media Influencers", kind: Research seminar, where: University of Zurich, when: "2025"}
+      - {title: "Communication Science Theories and Methods / Introduction to Python", kind: Course, where: "University of Fribourg / FH Graubünden", when: "2023, 2024"}
+      - {title: Quantitative Text Analysis, kind: Course, where: University of Amsterdam, when: "2020"}
+      - {title: "Guest lectures: multiverse analysis, open science, quantitative text analysis", kind: Guest lectures, where: University of Amsterdam, when: "2020–2022"}
+  - title: Undergraduate
+    items:
+      - {title: Introduction to Communication Science and Media Research, kind: Lecture, where: University of Zurich, when: "2024"}
+      - {title: Bachelor Thesis Seminar, kind: Seminar, where: University of Zurich, when: "2023, 2024"}
+      - {title: Digital Political Communication, kind: Research seminar, where: University of Zurich, when: "2022, 2023"}
+      - {title: Research Project I, kind: Course, where: University of Amsterdam, when: "2022"}
+      - {title: "Politics, Media, and Communication", kind: Course, where: University of Amsterdam, when: "2021"}
+      - {title: Quantitative Research Methods, kind: Course, where: University of Vienna, when: "2018"}
+  - title: Workshops
+    items:
+      - {title: Introduction to R, kind: GESIS Spring School, where: Mannheim, when: "2024, 2025"}
+      - {title: Introduction to Video Analysis with Python, kind: Workshops for Ukraine, where: Online, when: "2024"}
+      - {title: Introduction to R, kind: GESIS Autumn School, where: Mannheim, when: "2023"}
+      - {title: Joint Sentiment-Topic Modelling in R, kind: COMPTEXT pre-conference workshop, where: Dublin, when: "2022"}
+
+supervision: >-
+  I have supervised six MA theses and 13 BA theses at the University of Zurich (2023–2026), several of which
+  have developed into co-authored papers.

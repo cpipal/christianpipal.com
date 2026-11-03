@@ -1,0 +1,55 @@
+# General site settings. Text fields accept Markdown (**bold**, [link](url)).
+
+name: Christian Pipal
+me: Pipal              # last name as it appears in author lists -> rendered bold
+url: https://christianpipal.com
+role: Senior Research and Teaching Associate
+affiliation: Department of Communication and Media Research (IKMZ), University of Zurich
+photo: img/portrait.jpg   # put a square photo at static/img/portrait.jpg; initials are shown until then
+
+description: >-
+  Christian Pipal studies political communication on digital platforms — political influencers,
+  elite rhetoric, and AI in public debate — and develops computational and LLM-based methods
+  for communication research.
+
+nav:
+  - {page: index, label: Home}
+  - {page: research, label: Research}
+  - {page: publications, label: Publications}
+  - {page: teaching, label: Teaching}
+  - {page: cv, label: CV}
+
+links:
+  - {label: Email, url: "mailto:c.pipal@ikmz.uzh.ch", icon: mail}
+  - {label: GitHub, url: "https://github.com/cpipal", icon: github}
+  - {label: ORCID, url: "https://orcid.org/0000-0001-7237-1474", icon: orcid}
+  - {label: Bluesky, url: "https://bsky.app/profile/christianpipal.bsky.social", icon: bluesky}
+  - {label: LinkedIn, url: "https://www.linkedin.com/in/christianpipal/", icon: linkedin}
+  # TODO: fill in and uncomment
+  # - {label: Google Scholar, url: "https://scholar.google.com/citations?user=XXXX", icon: scholar}
+
+# DRAFT bio — rewrite in your own voice.
+bio: |
+  I am a Senior Research and Teaching Associate at the [Department of Communication and Media Research (IKMZ)](https://www.ikmz.uzh.ch)
+  at the University of Zurich. My research asks how political communication changes when platforms,
+  influencers and AI reshape **who speaks to the public, and how**.
+
+  Substantively, I study political social media influencers and other non-traditional political
+  communicators, the emotional tone and style of political elites, and how AI enters political debate.
+  Methodologically, I develop and validate computational tools for communication research — most recently
+  large language models for content analysis — and I write about how our discipline produces evidence.
+
+  I hold a PhD in Political Science from the University of Amsterdam (2024) and have been a visiting
+  researcher at LMU Munich and the University of Vienna.
+
+# DRAFT — months are guesses, please check.
+news:
+  - {date: 2026-06, text: "*Learning to Be Political* received a **Top Paper Award** from ICA's Political Communication Division."}
+  - {date: 2026-05, text: "*When Does Self-Correction Work for LLMs in Content Analysis?* is out in [Computational Communication Research](https://doi.org/10.5117/ccr2026.2.13.pipa)."}
+  - {date: 2026-01, text: "Visiting researcher at LMU Munich (CSS@LMU Fellowship)."}
+  - {date: 2025-09, text: "Started the BAKOM-funded project [Visual Tradcultures on TikTok](research.html#bakom-tradculture)."}
+
+# Papers featured on the home page (ids from publications.yml)
+featured: [learning-political, batching, nice-try-chatgpt, self-correction]
+
+theme: plot      # classic | terminal | latex | notebook | plot — see: python build.py preview

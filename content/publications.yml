@@ -1,0 +1,442 @@
+# All papers. Which research line / project a paper belongs to is set in research.yml.
+#
+# Fields per paper:
+#   id         short unique id (used in research.yml and as page anchor)
+#   title, authors ("Last, First"), year, venue, details (volume/pages), status (for working papers)
+#   doi, preprint, code, data, pdf     links (pdf: path under static/, e.g. files/pipal2024.pdf)
+#   award      short badge text
+#   abstract   shown when the entry is expanded
+#   figure     image path under static/ (e.g. figures/tone-politics.png) + figure_caption
+
+sections:
+  - key: articles
+    title: Journal articles
+    items:
+      - id: batching
+        figure: figures/batching.png
+        figure_caption: "Cost savings versus accuracy change relative to b=1 for each model and batch size; the shaded region marks the safe operating zone, and batch-size labels show where larger batches push models along the cost–accuracy frontier."
+        title: "How Much Can You Fit in a Prompt? Item Batching and Multi-Variable Stacking in LLM-Based Automated Content Analysis"
+        authors: ["Pipal, Christian", "Vogel, Eva-Maria", "Wack, Morgan", "Esser, Frank"]
+        year: 2026
+        venue: Computational Communication Research
+        details: forthcoming
+        preprint: https://doi.org/10.31235/osf.io/bxtsf_v1
+        abstract: >-
+          Large language models (LLMs) are increasingly being used for text classification across the social
+          sciences, yet researchers overwhelmingly classify one text per variable per prompt. Coding 100,000 texts on
+          four variables requires 400,000 API calls. Batching 25 items and stacking all variables into a single prompt
+          reduces this to 4,000 calls, cutting token costs by over 80%. Whether this degrades coding quality is
+          unknown. We tested eight production LLMs from four providers on 3,962 expert-coded tweets across four tasks,
+          varying batch size from 1 to 1,000 items and stacking up to 25 coding dimensions per prompt. Six of eight
+          models maintained accuracy within 2 pp of the single-item baseline through batch sizes of 100. Variable
+          stacking with up to 10 dimensions produced results comparable to single-variable coding, with degradation
+          driven by task complexity rather than prompt length. Within this safe operating range, the measurement
+          error from batching and stacking is smaller than typical inter-coder disagreement in the ground-truth data.
+
+      - id: citation-limits
+        abstract: "Do policies exempting references from journal word limits increase the demographic diversity of cited authors? We test this using a natural experiment across 27 political science journals. Between 2022 and 2024, ten journals adopted policies exempting references from manuscript word counts, while seventeen maintained traditional limits. Using generalized synthetic control methods to construct counterfactuals robust to differential pre-trends, we find that removing reference limits significantly expands bibliographies (+10.3 citations per article), confirming that word limits restrict citation volume. However, the proportions of citations for women, racial/ethnic minorities, and scholars from the Global South remain unchanged. Rather than citing outside their original bubbles, authors expand their bibliographies proportionally, maintaining pre-existing demographic ratios. Minimum detectable effects of 1.2–2.8% allow us to rule out even modest compositional shifts. These findings, robust across classification methods, estimators, levels of analysis, and journal exclusions, support a scale-invariance interpretation. Additional reference capacity alone does not change the exposure and attention patterns from which authors select citations. In short, structural interventions increase citation volume, but changing citation composition may require changing the literature scholars encounter and prioritize."
+        figure: figures/citation-limits.png
+        figure_caption: "Generalized synthetic control estimates of the treatment effect by quarter relative to policy adoption; citation volume (Panel A) opens a clear positive gap after adoption while the shares of female, minority and Global South first authors (Panels B–D) stay indistinguishable from zero."
+        title: "Do Citation Limits Constrain Diversity? Evidence from a Natural Experiment across Political Science Journals"
+        authors: ["Wack, Morgan", "Pipal, Christian", "Vogel, Eva-Maria", "Erickson, Megan"]
+        year: 2026
+        venue: "PS: Political Science & Politics"
+        details: forthcoming
+
+      - id: multilingual-survey
+        title: "Challenges for multilingual computational text analysis research: Evidence from a pre-registered survey of social science researchers"
+        authors: ["Dolinsky, Alona O.", "Schoonvelde, Martijn", "Pipal, Christian", "Baden, Christian", "Lind, Fabienne", "Shababo, Guy", "van der Velden, Mariken A. C. G.", "Zalik, Avital"]
+        year: 2026
+        venue: Acta Politica
+        details: online first
+        preprint: https://doi.org/10.31219/osf.io/9mybf_v2
+        abstract: >-
+          This paper investigates how English-centric developments of computational text analysis methods (CTAM)
+          shape the experiences and practices of social science researchers working with English, non-English, and
+          multilingual texts. Drawing on a survey of 433 scholars who published text-based research in top social
+          science journals between 2016 and 2020, we examine concerns about CTAM's validity and availability, use of
+          validation strategies, and barriers to working with multilingual corpora. Our survey findings indicate that
+          researchers working with text in multiple languages express greater concern about CTAM's validity, but do
+          not report using more validation strategies. Furthermore, researchers whose native language is not English
+          are more likely to rely on English-language texts when using CTAM than when not. These findings illustrate
+          a structural bias in tool development and resource availability that pushes computational research toward
+          English-language data. We conclude by outlining practical steps toward a more inclusive and linguistically
+          diverse computational social science.
+
+      - id: self-correction
+        abstract: "While Large Language Models (LLMs) have transformed content analysis, their ability to self-correct to achieve higher agreement with human coders remains contested. Recent evidence suggests LLMs fail to self-correct on reasoning tasks, but it is unclear if this limitation applies to classification, where the goal is maximizing overlap with human ground truth. We investigate iterative self-refinement, a pipeline where a model generates an initial classification, critiques its own output, and generates a final refined prediction. We test this across 14 variables (spanning framing, emotions, styles, politics, and topics) using a smaller, cost-effective model (Gemini 2 Flash) by systematically isolating the effects of codebooks versus few-shot examples. Results demonstrate a clear trade-off: refinement significantly boosts human alignment for complex, low-baseline constructs but degrades performance on simple, high-baseline tasks. Notably, a smaller model using refinement matches the accuracy of state-of-the-art reasoning models (Gemini 3 Flash) on complex tasks at a lower cost. These findings establish boundary conditions for self-correction, showing that external structure and task complexity jointly determine when refinement improves data quality."
+        figure: figures/self-correction.png
+        figure_caption: "F1-macro before (S0, gray) and after (S3, green) refinement for each condition and construct type; bars show mean F1 across variables within each construct type."
+        title: "When Does Self-Correction Work for LLMs in Content Analysis? The Role of External Structure and Task Complexity"
+        authors: ["Pipal, Christian", "Wack, Morgan", "Profos, Astrid", "Vogel, Eva-Maria", "Wittstock, Nicolas", "Mpadanes, Markos"]
+        year: 2026
+        venue: Computational Communication Research
+        details: "8(2), 1–35"
+        doi: 10.5117/ccr2026.2.13.pipa
+
+      - id: grounding
+        abstract: "Following the progressing internationalisation of social science research and the computational turn in the field, researchers are increasingly adopting computational text analysis (CTA) methods to compare textual data across multiple cases and languages. In these settings, it is not only the mapping between construct and measures that requires validation, but also the equivalence of this mapping across languages and cases. However, although the validation requirements in multilingual analyses exceed those in monolingual studies, current research shows that validation is often insufficiently and inconsistently addressed in comparative multilingual CTA. To support more robust comparative research, this article presents a framework for validating findings obtained from multilingual textual data. The framework outlines validation strategies for four key stages of a typical multilingual CTA workflow: corpus, input data, process, and output. It directly tackles the challenge of approaching equivalence across contexts and languages in these stages and moves beyond the common practice of identifying problems only at the final stage of research."
+        figure: figures/grounding.png
+        figure_caption: "A validation framework for multilingual comparative research designs, specifying objectives, considerations and evaluation steps for corpus, input-data, process and output validation."
+        title: "Grounding the Comparative Turn in Communications: A Framework for Validating Multilingual Computational Text Analysis"
+        authors: ["Lind, Fabienne", "Schoonvelde, Martijn", "Baden, Christian", "Dolinsky, Alona O.", "Pipal, Christian", "van der Velden, Mariken A. C. G."]
+        year: 2025
+        venue: Computational Communication Research
+        details: "7(1), 1–26"
+        doi: 10.5117/ccr2025.1.13.lind
+
+      - id: jst
+        figure: figures/jst.png
+        figure_caption: "Yearly JST speech sentiment by party in the UK House of Commons, German Bundestag and Dutch Tweede Kamer, with government periods marked."
+        title: "JST and rJST: Joint Estimation of Sentiment and Topics in Textual Data Using a Semi-Supervised Approach"
+        authors: ["Pipal, Christian", "Schoonvelde, Martijn", "Schumacher, Gijs", "Boiten, Max"]
+        year: 2025
+        venue: Communication Methods and Measures
+        details: "19(2), 112–130"
+        doi: 10.1080/19312458.2024.2383453
+        preprint: https://doi.org/10.31219/osf.io/mt3cs
+        code: https://github.com/cpipal/sentitopics
+        abstract: >-
+          This paper demonstrates the performance of the Joint Sentiment Topic model (JST) and the reversed Joint
+          Sentiment Topic model (rJST) in measuring sentiment in political speeches, comparing them against a set of
+          popular methods for sentiment analysis: widely used off-the-shelf sentiment dictionaries; an
+          embeddings-enhanced dictionary approach; Latent Semantic Scaling, a semi-supervised approach; and a
+          zero-shot transformer-based approach using a large language model (GPT-4). The findings reveal JST's
+          superiority over all non-transformer-based approaches in predicting human-coded sentiment in multiple
+          languages and its ability to replicate known sentiment trends in legislative speech. rJST, meanwhile,
+          provides valuable topic-specific sentiment estimates, responsive to political dynamics and significant
+          events. Both models are, however, outperformed by transformer-based models like GPT-4. Additionally, the
+          paper introduces the `sentitopics` R package, designed to facilitate the use of JST and rJST in
+          computational text analysis workflows. This package is compatible with popular text analysis tools, making
+          the models accessible for applied researchers in communication science.
+
+      - id: tone-politics
+        figure: figures/tone-politics.png
+        figure_caption: "Specification curves of legislators' tone (polarity and arousal) across a multiverse of multilevel models in seven parliaments; red marks effects with p < .05, grey p ≥ .05, showing that macro trends, ideology and experience have no systematic relationship with tone."
+        title: "Tone in Politics Is Not Systematically Related to Macro Trends, Ideology, or Experience"
+        authors: ["Pipal, Christian", "Bakker, Bert N.", "Schumacher, Gijs", "van der Velden, Mariken A. C. G."]
+        year: 2024
+        venue: Scientific Reports
+        details: "14, 3241"
+        doi: 10.1038/s41598-023-49618-9
+        abstract: >-
+          What explains the variation in tone in politics? Different literatures argue that changes in the tone of
+          politicians reflect changes in the economy, general language, well-being, or ideology. So far, these claims
+          have been empirically tested only in isolation, in single country studies, or with a small subset of
+          indicators. We offer an overarching view by modelling the use of tone in European national parliaments in
+          7 countries across 30 years. Using a semi-supervised sentiment-topic model to measure polarity and arousal
+          in legislative debates, we show in a preregistered multiverse analysis that the tone in legislative debates
+          is not systematically related to previously claimed factors. We also replicate the absence of such
+          systematic relationships using national leader speeches and parties' election manifestos. There is also no
+          universal trend towards more negativity or emotionality in political language. Overall, our results
+          highlight the importance of multi-lingual and cross-country multiverse analyses for generalizing findings
+          on emotions in politics.
+
+      - id: nato
+        title: "Blaming it on NATO? Framing the Role of NATO in the Full-Scale Russian Invasion of Ukraine on Twitter"
+        authors: ["Kobilke, Lara", "Kulichkina, Aytalina", "Baghumyan, Ani", "Pipal, Christian"]
+        year: 2023
+        venue: Frontiers in Political Science
+        details: "5, 1122439"
+        doi: 10.3389/fpos.2023.1122439
+        abstract: >-
+          Since social media has become a significant tool for conflict communication amid the full-scale Russian
+          invasion of Ukraine, researchers have grown more interested in the digital content citizens are exposed to.
+          We conducted a manual content analysis of tweets in English, Russian, and German that explicitly mentioned
+          NATO in the context of the full-scale invasion during February to May 2022, exploring how these
+          language-specific Twitter communities framed NATO's role in the conflict. English-speaking tweeters were
+          more likely to hold NATO responsible for finding a solution and least likely to blame NATO for the war
+          compared to German and Russian speakers. The Russian-speaking Twitter community exhibits a comparatively
+          lower tendency to hold NATO accountable for the ongoing war than their German-speaking counterparts, and is
+          the least likely to expect NATO to bring an end to the war. The study highlights the importance of cultural
+          and linguistic sensitivity when addressing responsibility in armed conflicts.
+
+      - id: multiverse-news
+        figure: figures/multiverse-news.jpg
+        figure_caption: "Results from the multiverse of OLS and negative binomial models — each dot is the estimated effect of news-article sentiment on shares, comments, emojis or likes (random subset of 200 of 1,728 specifications per outcome; colours mark the sentiment dictionary)."
+        title: "If You Have Choices, Why Not Choose (and Share) All of Them? A Multiverse Approach to Understanding News Engagement on Social Media"
+        authors: ["Pipal, Christian", "Song, Hyunjin", "Boomgaarden, Hajo G."]
+        year: 2022
+        venue: Digital Journalism
+        details: "11(2), 255–275"
+        doi: 10.1080/21670811.2022.2036623
+        abstract: >-
+          Social sciences are facing a crisis of replicability, and concerns about the confidence in quantitative
+          findings have resulted in an increasing interest in open science practices across many fields. In this
+          article we introduce scholars of (digital) journalism studies and communication science to multiverse
+          analysis while addressing the possible reasons of heterogeneity in the findings of research on engagement
+          with news on social media. Using the question of which news article characteristics predict news engagement
+          on social media, this illustration of the multiverse approach shows how different measurement, data
+          processing, and modelling choices lead to divergent conclusions. In particular, we show how the selection of
+          widely used automated text analysis tools and preprocessing steps influence the conclusions drawn from the
+          analysis. We also use this illustration to guide interested scholars through the different steps of doing a
+          multiverse analysis. More broadly, we demonstrate how multiverse analysis can be an open and transparent
+          research approach in a field that is increasingly faced with a wide range of analytical choices.
+
+      - id: three-gaps
+        title: "Three Gaps in Computational Text Analysis Methods for Social Sciences: A Research Agenda"
+        authors: ["Baden, Christian", "Pipal, Christian", "Schoonvelde, Martijn", "van der Velden, Mariken A. C. G."]
+        year: 2022
+        venue: Communication Methods and Measures
+        details: "16(1), 1–18"
+        doi: 10.1080/19312458.2021.2015574
+        abstract: >-
+          We identify three gaps that limit the utility and obstruct the progress of computational text analysis
+          methods (CTAM) for social science research. First, we contend that CTAM development has prioritized
+          technological over validity concerns, giving limited attention to the operationalization of social
+          scientific measurements. Second, we identify a mismatch between CTAMs' focus on extracting specific contents
+          and document-level patterns, and social science researchers' need for measuring multiple, often complex
+          contents in the text. Third, we argue that the dominance of English language tools depresses comparative
+          research and inclusivity toward scholarly communities examining languages other than English. We
+          substantiate our claims by drawing upon a broad review of methodological work in the computational social
+          sciences, as well as an inventory of leading research publications using quantitative textual analysis.
+          Subsequently, we discuss implications of these three gaps for social scientists' uneven uptake of CTAM, as
+          well as the field of computational social science text research as a whole. Finally, we propose a research
+          agenda intended to bridge the identified gaps and improve the validity, utility, and inclusiveness of CTAM.
+
+  - key: chapters
+    title: Book chapters, proceedings & editorials
+    items:
+      - id: news-influencers-chapter
+        title: "Who Are the News Influencers? Origins of Fame and the Boundary With Journalism in the 2024 U.S. Presidential Election"
+        authors: ["Vogel, Eva-Maria", "Wack, Morgan", "Pipal, Christian", "Esser, Frank"]
+        year: 2027
+        venue: "Media, Influence, and the 2024 U.S. Presidential Election (eds. D. Schill & J. Hendricks), Routledge"
+        details: forthcoming
+
+      - id: memes-editorial
+        title: "Editorial: From Memes to Movements: How Affordances Shape Resistance and Collective Action on TikTok"
+        authors: ["Kobilke, Lara", "Primig, Florian", "Pipal, Christian", "Lacasa, Pilar"]
+        year: 2026
+        venue: Frontiers in Computer Science
+        details: "8, 1869722"
+        doi: 10.3389/fcomp.2026.1869722
+
+      - id: past-perfect
+        title: "Past Perfect: Patterns of Visual Representation of Tradcontent Influencers on TikTok"
+        authors: ["Tarnutzer-Zigerli, Seraina", "Pipal, Christian"]
+        year: 2026
+        venue: "Proceedings of the Joint Conference of the DGPuK Divisions “Media, Public Sphere, Gender” and “Visual Communication” 2025"
+        details: "127–132"
+        doi: 10.21241/ssoar.113186
+
+      - id: sentiment-encyclopedia
+        title: "Sentiment Analysis"
+        authors: ["van der Velden, Mariken A. C. G.", "Umansky, Natalia", "Pipal, Christian"]
+        year: 2025
+        venue: "Encyclopedia of Political Communication (eds. A. Nai, M. Grömping & D. Wirz), Edward Elgar"
+        preprint: https://doi.org/10.31219/osf.io/6q2zt
+        abstract: >-
+          Sentiment is a central topic for scholars of Political Communication. Despite its popularity, sentiment
+          suffers from a lack of agreed-upon conceptualization and operationalization. The ambiguity and complexity is
+          reflected in the applications of sentiment. Scholars have used sentiment as an analytical frame to describe
+          and/or explain tonality of a (news) story, outlook or perspective in a (news) story, focus on conflict or
+          consensus, focus on incapability and misconduct, as well as the tone towards actors and organizations in
+          media, political, and public discourse. Sentiment has especially gained popularity in the "text-as-data"
+          revolution due to the availability of data as well as computational text analysis methods. In this entry,
+          we highlight the existing theoretical applications based on the core theories in political communication,
+          as well as review the methodological toolkit to automatically measure sentiment.
+
+      - id: text-as-data-polpsych
+        title: "Text as Data in Political Psychology"
+        authors: ["Schoonvelde, Martijn", "Pipal, Christian", "Schumacher, Gijs"]
+        year: 2022
+        venue: "Handbook of Language Analysis in Psychology (eds. M. Dehghani & R. L. Boyd), Guilford Press"
+        preprint: https://doi.org/10.31219/osf.io/p5mdq
+        abstract: >-
+          This chapter provides an assessment of automated text analysis methods in political psychology structured
+          around the following core questions: (i) What is the current state of affairs of text as data in political
+          psychology? (ii) What can political science and political psychology learn from each other when it comes to
+          analysing natural language? (iii) Where does text as data in political psychology go next?
+
+  # Only papers with a public preprint (arXiv, SocArXiv, OSF, SSRN ...) go here.
+  - key: working
+    title: Working papers
+    items:
+      - id: learning-political
+        figure: figures/learning-political.png
+        figure_caption: "Audience engagement and the dynamics of political posting (H4) — better relative performance of a creator's first political post predicts a sooner next political post (a), and stronger engagement with lifestyle-political posts predicts a sooner first formal-political post (b); hazard ratios plus Kaplan–Meier curves by performance quartile."
+        title: "Learning to Be Political: Audience Reinforcement and the Disproportionate Political Role of Smaller Social Media Influencers"
+        authors: ["Pipal, Christian", "Wack, Morgan", "Vogel, Eva-Maria", "Esser, Frank"]
+        year: 2026
+        award: ICA Top Paper Award 2026
+        preprint: https://doi.org/10.31235/osf.io/rykgf_v1
+        abstract: >-
+          Some social media influencers (SMIs) occasionally discuss political actors and events, while others
+          regularly engage with political topics. We ask here whether audience response helps explain this
+          difference. We argue that engagement with political posts provides feedback that can reinforce further
+          political posting and, over time, a move toward formal-political content. We test this argument using
+          761,102 Instagram posts from 1,683 Austrian and German SMIs collected over 60 months (2021–2025), combining
+          a validated two-stage text classification pipeline with within-creator fixed-effects regressions and Cox
+          proportional-hazards models. Political posts receive 18% more likes and 28% more comments than non-political
+          posts by the same creator, although this boost is not larger for smaller creators. A better-performing first
+          political post is followed sooner by another political post. Stronger engagement with lifestyle-political
+          posts also predicts an earlier move into formal-political content, with implications for democracy given
+          the increasing prominence of SMIs as agenda-setters in digital ecosystems. Smaller creators post political
+          content at higher rates. Audience response therefore helps explain why political communication by SMIs
+          persists and how it can move toward formal politics.
+
+      - id: biased-provision
+        figure: figures/biased-provision.png
+        figure_caption: "Opposing-side presence by query framing for each system — language models (blue) fan out under confirmatory framing while search engines (red) stay clustered, so between-LLM differences grow as queries become more leading."
+        title: "Biased Provision: Cross-Provider Divergence in How LLMs and Search Engines Supply Evidence on Contested Political Questions"
+        authors: ["Wack, Morgan", "Vogel, Eva-Maria", "Pipal, Christian"]
+        year: 2026
+        preprint: https://doi.org/10.31235/osf.io/5g2tw_v1
+        abstract: >-
+          Does the evidence generated to answer political questions depend on which large language model (LLM) users
+          query? We introduce "biased provision" to describe this dependence, which can arise where providers differ in
+          how compliant their models are to user requests. Auditing four LLMs, four search engines, and two hybrids
+          across 8,249 responses to 30 claims, we find similar average rates of disconfirming evidence, evidence
+          against the claim asked about, across system types but larger differences among LLMs. All four LLMs answered
+          neutral questions with similar evidence but diverged once users asked for support, whereas search engines
+          narrowed together only after queries included the user's argument. Search engines supplied the least
+          disconfirming evidence under argued requests, a baseline for claims of chatbot sycophancy. As political
+          questions migrate from search engines to chatbots, the evidence users receive will depend less on the tools
+          people use than on which chatbot's answers they prefer.
+
+      - id: nice-try-chatgpt
+        figure: figures/nice-try-chatgpt.png
+        figure_caption: "What the conversation is about after each kind of reply — follow-on comments dispute authenticity 45% of the time after an AI accusation and 24% after a bot accusation, versus 3% after ordinary dismissals and 2% after a substantive reply, while substantive engagement drops to 29%."
+        title: "Nice Try, ChatGPT: AI Accusations Target Opponents and Divert Political Debates"
+        authors: ["Wack, Morgan", "Pipal, Christian", "Vogel, Eva-Maria"]
+        year: 2026
+        preprint: https://doi.org/10.31235/osf.io/36mys_v1
+        abstract: >-
+          It is becoming increasingly common to encounter AI-generated text online. Yet at the same time it is often
+          difficult to distinguish authentic text from generative outputs, particularly within shorter posts. Given
+          this conflict, we expect accusations that a text was AI-generated to become a common strategy for deflecting
+          unwelcome arguments. To study the occurrence of these accusations and their impact on online discourse, we
+          draw on posts collected across two years and twelve political Reddit communities to track who is accused,
+          whether accused comments are flagged by detection tools as AI more often, and whether these accusations
+          disproportionately disrupt debates. Consistent with research on motivated reasoning, accusers from across
+          the political spectrum targeted comments which opposed their views at higher rates, 72% of the time against
+          50% for comparable same-thread comments. AI accusations also disproportionately undermined open debate.
+          Compared to other types of hostile dismissals, we find that substantive engagement falls to 29% (from 67%),
+          with threads often turning to the litigation of a post's authenticity rather than engaging with its
+          substance. These findings illustrate the growing tendency to indict political opponents as inauthentic,
+          which we call the motivated attribution of inauthenticity, while illustrating how the existence of
+          generative AI can harm political conversations through suspicion alone.
+
+      - id: world-cup
+        title: "Who Sees Politics in Sports? Norm Endorsement and Partisan Judgments from the 2026 World Cup"
+        authors: ["Wack, Morgan", "Vogler, Daniel", "Arrigo, Manuel", "Pipal, Christian", "da Silva, Lucas Paulo"]
+        year: 2026
+        preprint: https://doi.org/10.31235/osf.io/gtjp4_v1
+        abstract: >-
+          Most Americans say politics should stay out of sports. Yet whether this norm is truly binding depends on
+          whether people apply it when their own side violates the norm. To test this "apolitical sports" norm, we
+          fielded a two-wave matched panel survey around the 2026 FIFA World Cup (N1 = 988; N2 = 699). During the
+          tournament, U.S. President Donald Trump called FIFA to have an American player's red-card suspension lifted.
+          We asked respondents to judge the incident directly and to judge a message on players' shirts, varied to
+          support or protest a contentious U.S. policy. Overall, endorsing the norm predicted lower tolerance for
+          political expression in sports, within each party separately, with a smaller own-side advantage. Following
+          this widely reported violation, Democrats raised their endorsement while Republicans did not. What divided
+          partisans most was what they counted as a violation, with Republicans reporting less political
+          interference. In short, while both sides agreed with the norm, they disagreed about whether it had been
+          broken. Our findings suggest that partisan accommodation can influence how citizens recall and conceive of
+          potentially norm-violating events.
+
+      - id: ai-parliaments
+        figure: figures/ai-parliaments.png
+        figure_caption: "Two-shock interrupted time series — (A) model-predicted monthly AI attention in eight parliaments against a no-shock counterfactual around ChatGPT and the AI Act, and (B) per-country ChatGPT slope-change incidence rate ratios."
+        title: "After ChatGPT, After the AI Act: Artificial Intelligence in Eight European Parliaments, 2015–2026"
+        authors: ["Pipal, Christian"]
+        year: 2026
+        preprint: https://doi.org/10.2139/ssrn.6866874
+        abstract: >-
+          Artificial intelligence (AI) has become a central policy concern in Europe, but little is known about how
+          national parliaments debated the technology. The closest study covers four legislatures, three outside
+          Europe. I address the within-Europe question through two natural shocks, the release of ChatGPT in November
+          2022 and the entry into force of the EU AI Act in August 2024. The corpus contains 3,594,388 parliamentary
+          speeches from eight European countries between 2015 and 2026, of which 9,948 are AI-related and coded on
+          thirteen dimensions using a large language model with human-validated reliability. The post-ChatGPT
+          acceleration is concentrated in the United Kingdom and Norway rather than common across the eight.
+          References to the AI Act follow an integration gradient, with European Union members five times higher than
+          the post-Brexit United Kingdom and EEA Norway close to the member rate. Government and opposition frame AI
+          in opposing terms along a left–right gradient. The European AI debate is a structured field organised by
+          Union relationship and the government–opposition cleavage, which matters for regulatory diffusion after
+          Brexit.
+
+      - id: fact-checks-llms
+        figure: figures/fact-checks-llms.png
+        figure_caption: "Vulnerability by fact-check presence — fact-checked narratives cut uncertain responses from 20.0% to 6.4% and contamination from 4.2% to 0.6%, and average 7.0% non-rejection per narrative versus 24.6% for non-fact-checked narratives."
+        title: "Fact-Checks Can Help Inoculate LLMs Against Disinformation"
+        authors: ["Wack, Morgan", "Vogel, Eva-Maria", "Pipal, Christian", "Warren, Patrick"]
+        year: 2026
+        preprint: https://doi.org/10.31235/osf.io/nrs5z_v1
+        abstract: >-
+          Large language models (LLMs) have become the first source millions consult when evaluating political claims,
+          yet they were trained on an open internet that state-sponsored disinformation operations have been designed
+          to pollute. We audit four frontier models across 2,268 responses to 63 fabrications from eight documented
+          influence operations and find that even a single published fact-check can shift a model from hedging about a
+          fabrication to rejecting it outright. Overall, models correctly rejected only 81% of fabrications while
+          repeating disinformation in 3% of cases. Critically, the remaining 16% of responses would have left users
+          unable to determine whether fabricated claims were true or false. Narratives which had been debunked by at
+          least one IFCN-certified fact-checking organization were correctly rejected as disinformation 93% of the
+          time compared to just 76% of the time for unchecked narratives. Exploratory analyses suggest that this
+          mechanism operates through training data, with models echoing the specific vocabulary of published
+          corrections when available during their training windows. Fact-checks designed for human audiences appear to
+          serve as effective protection for LLMs, converting both model uncertainty and outright disinformation into
+          definitive rejections.
+
+      - id: dances-duets
+        figure: figures/dances-duets.png
+        figure_caption: "Joint negative-binomial associations of all six communicative styles, five political functions, electoral content and footage provenance with plays, likes, comments and shares for 16,327 videos from 74 U.S. politicians (count ratios with 90%/95% intervals)."
+        title: "Dances, Duets, and Debates: Analysing Political Communication and Viewer Engagement on TikTok"
+        authors: ["Pipal, Christian", "Umansky, Natalia"]
+        year: 2023
+        award: ICA Top Paper Award 2024
+        preprint: https://doi.org/10.31219/osf.io/g8dbu
+        abstract: >-
+          Launched in 2017, TikTok has rapidly gained global popularity, extending beyond entertainment to become a
+          hub for ideological formation and political activism, revolutionizing the way politicians interact with
+          constituents. Yet, despite extensive research on politicians' use of social media platforms like Twitter
+          and Facebook, TikTok's distinct platform-specific languages and features have received limited attention.
+          This paper provides a first examination of the ways in which U.S. politicians embrace and adapt to the
+          TikTok platform. Employing a multimodal approach that studies video, text, and audio, we collect and analyse
+          a novel dataset of TikTok videos created by U.S. Governors and Members of Congress to understand how they
+          use comedic, documentary, communal, explanatory, interactive, and meta communication styles to connect with
+          their audience. U.S. politicians primarily use TikTok to communicate about political issues, often adopting
+          explanatory and documentary styles to articulate their policies. However, the comedic style significantly
+          boosts engagement, especially for female politicians, who see a fourfold increase in engagement when
+          producing comedic content compared to male counterparts. This presents a challenge for politicians:
+          balancing humor's allure with the seriousness expected from them.
+
+  - key: data
+    title: Data sets & software
+    items:
+      - id: software-tools-data
+        title: "Data on Software Tools in Computational Text Analysis Research"
+        authors: ["Stecker, Marc", "Baden, Christian", "Balluff, Phillip", "Pipal, Christian", "Lind, Fabienne", "Schoonvelde, Martijn", "Dinhopl, Claudia", "van der Velden, Mariken A. C. G.", "Waldherr, Annie", "Boomgaarden, Hajo G."]
+        year: 2024
+        venue: OSF
+        data: https://doi.org/10.17605/OSF.IO/FG6WQ
+
+      - id: euspeech
+        title: "EUSpeech v2.0: A Dataset of 11,466 Speeches by European Leaders"
+        authors: ["Schumacher, Gijs", "Berk, Nicolai", "Pipal, Christian", "Kantorowicz, Jaroslaw", "Schoonvelde, Martijn", "Traber, Denise", "de Vries, Erik"]
+        year: 2020
+        venue: OSF
+        data: https://osf.io/c79ha/
+
+      - id: mexca
+        title: "MEXCA: A Simple and Robust Pipeline for Capturing Emotion Expressions in Faces, Vocalization, and Speech"
+        authors: ["Lüken, Malte", "Moodley, Kody", "Viviani, Eva", "Pipal, Christian", "Schumacher, Gijs"]
+        year: 2024
+        venue: Python package
+        preprint: https://doi.org/10.31234/osf.io/56svb
+        code: https://github.com/mexca/mexca
+        abstract: >-
+          MEXCA is an easy-to-use tool researchers can use to capture emotion expressions from multiple modalities in
+          videos. It overcomes limitations of previous software by combining existing unimodal systems to ultimately
+          extract three modalities: facial muscle movements, vocalizations, and speech content. Moreover, it can also
+          track faces and speakers in the video. We describe the software's architecture and features and show how
+          its output can be used to analyze emotion expressions in a Dutch election debate.
+
+      - id: sentitopics
+        title: "sentitopics: Joint Estimation of Sentiment and Topics in Textual Data"
+        authors: ["Pipal, Christian", "Boiten, Max"]
+        year: 2022
+        venue: R package
+        code: https://github.com/cpipal/sentitopics

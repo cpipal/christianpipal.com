@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Teaching · {{ site.name }}{% endblock %}
+{% block content %}
+
+{% call nb.mdcell("page-head") %}
+<h1># Teaching</h1>
+<div class="lede prose">{{ teaching.intro | md }}</div>
+{% endcall %}
+
+{% for g in teaching.groups %}
+{% call nb.code(loop.index) %}teaching <span class="tok-o">|&gt;</span> <span class="tok-f">filter</span>(level <span class="tok-o">==</span> <span class="tok-s">"{{ g.title | lower }}"</span>){% endcall %}
+{% call nb.out(loop.index, "tbl-out") %}
+<p class="tbl-meta"># A tibble: {{ g["items"] | length }} × 4</p>
+<div class="tbl rows">
+  {{ nb.tibble_head([("", "c-idx"), ("when", "c-when"), ("course", "c-main")]) }}
+  {% for c in g["items"] %}
+  <div class="tbl-row">
+    <span class="c-idx">{{ loop.index }}</span>
+    <span class="c-when">{{ c.when }}</span>
+    <span class="c-main"><strong>{{ c.title }}</strong><span class="c-sub">{{ c.kind }} · {{ c.where }}</span></span>
+  </div>
+  {% endfor %}
+</div>
+{% endcall %}
+{% endfor %}
+
+{% call nb.mdcell() %}
+<h2>## Supervision</h2>
+<div class="prose">{{ teaching.supervision | md }}</div>
+{% endcall %}
+{% endblock %}

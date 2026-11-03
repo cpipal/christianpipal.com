@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Research · {{ site.name }}{% endblock %}
+{% block content %}
+<header class="page-head">
+  {{ m.prompt("cd research/ && cat README.md", "~") }}
+  <h1>research/</h1>
+  <div class="lede prose">{{ research.intro | md }}</div>
+  <nav class="toc" aria-label="On this page">
+    {% for l in research.lines %}<a href="#{{ l.key }}" class="line-{{ l.key }}">./{{ l.number }}_{{ l.kicker | lower | replace(" ", "-") }}/</a>{% endfor %}
+    <a href="#projects" class="toc-proj">./projects/</a>
+  </nav>
+</header>
+
+{% for l in research.lines %}
+<section class="frame line-section line-{{ l.key }}" id="{{ l.key }}">
+  {{ m.frame_title(l.number ~ "_" ~ (l.kicker | lower | replace(" ", "-")) ~ "/", l.title) }}
+  <div class="frame-body">
+    <div class="prose line-summary">{{ l.summary | md }}</div>
+    {{ m.prompt("tree " ~ l.number ~ "_" ~ (l.kicker | lower | replace(" ", "-")) ~ "/", "~/research") }}
+    <div class="clusters">
+      {% for c in l.clusters %}
+      <div class="cluster">
+        <h3>{{ c.title }}/</h3>
+        <ul>{% for pid in c.papers %}{{ m.pub_compact(papers[pid]) }}{% endfor %}</ul>
+      </div>
+      {% endfor %}
+    </div>
+    <p class="more-link"><a href="publications.html?line={{ l.key }}">→ grep -l "{{ l.key }}" papers/* | xargs cat</a></p>
+  </div>
+  <div class="frame-foot">└{{ "─" * 3 }}</div>
+</section>
+{% endfor %}
+
+<section class="block" id="projects">
+  {{ m.prompt("ls -l projects/", "~/research") }}
+  <div class="projects">
+    {% for p in research.projects %}
+    <article class="frame project{% if p.status == 'completed' %} completed{% endif %}" id="{{ p.key }}">
+      {{ m.frame_title(p.key ~ "/", "[" ~ ("running" if p.status == "ongoing" else "exited 0") ~ "]") }}
+      <div class="frame-body">
+        <h3>{{ p.title }}</h3>
+        <dl class="kv">
+          <dt>funder</dt><dd>{{ p.funder }}</dd>
+          <dt>period</dt><dd>{{ p.period }}</dd>
+          <dt>role</dt><dd>{{ p.role }}</dd>
+          {% if p.team %}<dt>team</dt><dd>{{ p.team }}</dd>{% endif %}
+        </dl>
+        <div class="prose">{{ p.summary | md }}</div>
+        {% if p.papers %}
+        <details class="project-papers">
+          <summary><span class="sum-closed">[+]</span><span class="sum-open">[-]</span> ls {{ p.key }}/papers/ <span class="c">({{ p.papers | length }})</span></summary>
+          <ul>{% for pid in p.papers %}{{ m.pub_compact(papers[pid]) }}{% endfor %}</ul>
+        </details>
+        {% endif %}
+      </div>
+      <div class="frame-foot">└{{ "─" * 3 }}</div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

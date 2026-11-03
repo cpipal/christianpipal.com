@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}CV · {{ site.name }}{% endblock %}
+{% block titleblock %}
+<header class="titleblock cv-title">
+  <h1>{{ site.name }}</h1>
+  <p class="cv-sub">{{ site.role }} &middot; {{ site.affiliation }}</p>
+  <p class="cv-sub">{% for l in site.links %}<a href="{{ l.url }}">{{ l.label }}</a>{{ " · " if not loop.last }}{% endfor %}</p>
+  {% if cv_pdf %}<p class="cv-sub"><a class="pdf-link" href="files/cv.pdf">\includepdf{cv.pdf} &rarr; download the full CV</a></p>{% endif %}
+</header>
+{% endblock %}
+{% block content %}
+{% for s in cv.sections %}
+<section class="cvsec">
+  <h2 class="cvsec-title">{{ s.title }}</h2>
+  <table class="tabular cv">
+    <tbody>
+    {% for r in s.rows %}
+      <tr>
+        <td class="t-main"><strong>{{ r.what }}</strong>{% if r.where %}, <em>{{ r.where }}</em>{% endif %}{% if r.note %}<br><span class="note">{{ r.note }}</span>{% endif %}</td>
+        <td class="t-when">{{ r.when or "" }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endfor %}
+
+<section class="cvsec">
+  <h2 class="cvsec-title">Publications</h2>
+  <p>See the <a href="publications.html">bibliography</a> ({{ papers | length }} entries).</p>
+</section>
+{% endblock %}

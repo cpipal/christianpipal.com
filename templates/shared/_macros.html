@@ -1,0 +1,63 @@
+{% macro icon(name) -%}
+{%- if name == "mail" -%}<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg>
+{%- elif name == "github" -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+{%- elif name == "scholar" -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11v5c3 2.5 9 2.5 12 0v-5"/></svg>
+{%- elif name == "orcid" -%}<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M8.5 10v7M8.5 7v.01M12 17v-7h2a3.5 3.5 0 0 1 0 7z"/></svg>
+{%- elif name == "bluesky" -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 11c-1.5-3-5.5-7.5-8-6.5S4 12 7 13c-3 1-3 4 0 5.5S11 17 12 14c1 3 2 5.5 5 4.5s3-4.5 0-5.5c3-1 5.5-7.5 3-8.5S13.5 8 12 11z"/></svg>
+{%- elif name == "linkedin" -%}<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.01M12 17v-7M12 13a3 3 0 0 1 6 0v4"/></svg>
+{%- elif name == "cv" -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>
+{%- elif name == "theme" -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>
+{%- elif name == "arrow" -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+{%- endif -%}
+{%- endmacro %}
+
+{% macro link_url(p) -%}
+{%- if p.doi %}https://doi.org/{{ p.doi }}{% elif p.preprint %}{{ p.preprint }}{% elif p.code %}{{ p.code }}{% elif p.data %}{{ p.data }}{% endif -%}
+{%- endmacro %}
+
+{# Full publication entry with expandable abstract + key figure #}
+{% macro pub(p, lines, show_year=true) %}
+<article class="pub" id="{{ p.id }}" data-lines="{{ p.lines | join(' ') }}" data-section="{{ p.section }}">
+  {% if show_year %}<div class="pub-year">{{ p.year or "" }}</div>{% endif %}
+  <div class="pub-body">
+    <h3 class="pub-title">{% set u = link_url(p) %}{% if u %}<a href="{{ u }}">{{ p.title }}</a>{% else %}{{ p.title }}{% endif %}</h3>
+    <p class="pub-authors">{{ p.authors | authors }}</p>
+    <p class="pub-venue">
+      {%- if p.venue %}<em>{{ p.venue }}</em>{% endif %}
+      {%- if p.details %}{% if p.venue %}, {% endif %}{{ p.details }}{% endif %}
+      {%- if p.status %}<span class="status">{{ p.status }}</span>{% endif %}
+    </p>
+    <div class="pub-meta">
+      {% if p.award %}<span class="award">★ {{ p.award }}</span>{% endif %}
+      {% for k in p.lines %}<span class="line-tag line-{{ k }}">{{ lines[k].kicker }}</span>{% endfor %}
+      {% if p.doi %}<a class="chip" href="https://doi.org/{{ p.doi }}">DOI</a>{% endif %}
+      {% if p.preprint %}<a class="chip" href="{{ p.preprint }}">Preprint</a>{% endif %}
+      {% if p.pdf %}<a class="chip" href="{{ p.pdf }}">PDF</a>{% endif %}
+      {% if p.code %}<a class="chip" href="{{ p.code }}">Code</a>{% endif %}
+      {% if p.data %}<a class="chip" href="{{ p.data }}">Data</a>{% endif %}
+    </div>
+    {% if p.abstract or p.figure %}
+    <details class="pub-more">
+      <summary>{% if p.abstract and p.figure %}Abstract &amp; key figure{% elif p.figure %}Key figure{% else %}Abstract{% endif %}</summary>
+      <div class="pub-more-body{% if p.figure %} has-figure{% endif %}">
+        {% if p.abstract %}<div class="abstract">{{ p.abstract | md }}</div>{% endif %}
+        {% if p.figure %}
+        <figure>
+          <a href="{{ p.figure }}"><img src="{{ p.figure }}" alt="Key figure: {{ p.figure_caption or p.title }}" loading="lazy"></a>
+          {% if p.figure_caption %}<figcaption>{{ p.figure_caption | md(inline=true) }}</figcaption>{% endif %}
+        </figure>
+        {% endif %}
+      </div>
+    </details>
+    {% endif %}
+  </div>
+</article>
+{% endmacro %}
+
+{# One-line reference used on the research page #}
+{% macro pub_compact(p) %}
+<li class="pub-compact">
+  <a href="publications.html#{{ p.id }}">{{ p.title }}</a>
+  <span class="pc-meta">{% if p.venue %}{{ p.venue.split(" (")[0] }}{% elif p.preprint %}Preprint{% endif %}{% if p.year %} · {{ p.year }}{% endif %}</span>
+</li>
+{% endmacro %}

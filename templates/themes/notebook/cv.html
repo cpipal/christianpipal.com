@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}CV · {{ site.name }}{% endblock %}
+{% block content %}
+
+{% call nb.mdcell("page-head") %}
+<h1># Curriculum vitae</h1>
+{% if cv_pdf %}<p><a class="button" href="files/cv.pdf">{{ m.icon("cv") }} <span class="tok-f">download.file</span>(<span class="tok-s">"cv.pdf"</span>)</a></p>{% endif %}
+{% endcall %}
+
+{% for s in cv.sections %}
+{% set key = s.title | lower | replace(" ", "_") %}
+{% call nb.code(loop.index) %}cv<span class="tok-o">$</span>{{ key }}{% endcall %}
+{% call nb.out(loop.index, "tbl-out") %}
+<p class="tbl-meta"># A tibble: {{ s.rows | length }} × 3 <span class="tok-c">— {{ s.title | lower }}</span></p>
+<div class="tbl rows">
+  {{ nb.tibble_head([("", "c-idx"), ("when", "c-when"), ("what", "c-main")]) }}
+  {% for r in s.rows %}
+  <div class="tbl-row">
+    <span class="c-idx">{{ loop.index }}</span>
+    <span class="c-when">{% if r.when %}{{ r.when }}{% else %}<span class="na">NA</span>{% endif %}</span>
+    <span class="c-main"><strong>{{ r.what }}</strong>{% if r.where %}<span class="c-sub">{{ r.where }}</span>{% endif %}{% if r.note %}<span class="c-note">{{ r.note }}</span>{% endif %}</span>
+  </div>
+  {% endfor %}
+</div>
+{% endcall %}
+{% endfor %}
+
+{% call nb.code(cv.sections | length + 1) %}<span class="tok-f">source</span>(<span class="tok-s">"publications.ipynb"</span>){% endcall %}
+{% call nb.out(cv.sections | length + 1, "list-out") %}
+<p><a href="publications.html">→ full list of publications, with abstracts and key figures</a></p>
+{% endcall %}
+{% endblock %}

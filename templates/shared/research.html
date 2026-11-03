@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Research · {{ site.name }}{% endblock %}
+{% block content %}
+<header class="page-head">
+  <h1>Research</h1>
+  <div class="lede prose">{{ research.intro | md }}</div>
+  <nav class="toc" aria-label="On this page">
+    {% for l in research.lines %}<a href="#{{ l.key }}" class="line-{{ l.key }}"><span class="num">{{ l.number }}</span>{{ l.title }}</a>{% endfor %}
+    <a href="#projects"><span class="num">→</span>Projects</a>
+  </nav>
+</header>
+
+{% for l in research.lines %}
+<section class="line-section line-{{ l.key }}" id="{{ l.key }}">
+  <div class="line-head">
+    <span class="lc-num">{{ l.number }}</span>
+    <div>
+      <p class="eyebrow">{{ l.kicker }}</p>
+      <h2>{{ l.title }}</h2>
+    </div>
+  </div>
+  <div class="prose line-summary">{{ l.summary | md }}</div>
+  <div class="clusters">
+    {% for c in l.clusters %}
+    <div class="cluster">
+      <h3>{{ c.title }}</h3>
+      <ul>{% for pid in c.papers %}{{ m.pub_compact(papers[pid]) }}{% endfor %}</ul>
+    </div>
+    {% endfor %}
+  </div>
+  <p class="more-link"><a href="publications.html?line={{ l.key }}">All {{ l.kicker | lower }} work with abstracts {{ m.icon("arrow") }}</a></p>
+</section>
+{% endfor %}
+
+<section class="block" id="projects">
+  <h2 class="section-title"><span class="num">→</span>Projects</h2>
+  <div class="projects">
+    {% for p in research.projects %}
+    <article class="project{% if p.status == 'completed' %} completed{% endif %}" id="{{ p.key }}">
+      <p class="eyebrow">{{ p.funder }} · {{ p.period }}{% if p.status == "completed" %} · completed{% endif %}</p>
+      <h3>{{ p.title }}</h3>
+      <p class="project-role">{{ p.role }}{% if p.team %}<br><span>{{ p.team }}</span>{% endif %}</p>
+      <div class="prose">{{ p.summary | md }}</div>
+      {% if p.papers %}
+      <details class="project-papers">
+        <summary>{{ p.papers | length }} paper{{ "s" if p.papers | length != 1 }} from this project</summary>
+        <ul>{% for pid in p.papers %}{{ m.pub_compact(papers[pid]) }}{% endfor %}</ul>
+      </details>
+      {% endif %}
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

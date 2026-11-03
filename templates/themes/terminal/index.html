@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  {{ m.prompt("whoami") }}
+  <div class="hero-grid">
+    <figure class="portrait">
+      <div class="fig-bar">── portrait.jpg ──</div>
+      <div class="portrait-img">{% if site.photo %}<img src="{{ site.photo }}" alt="Portrait of {{ site.name }}">{% endif %}</div>
+    </figure>
+    <div class="hero-text">
+      <h1>{{ site.name }}<span class="cursor" aria-hidden="true"></span></h1>
+      <p class="role"><span class="c">//</span> {{ site.role | lower }}</p>
+      <p class="affil"><span class="c">//</span> {{ site.affiliation }}</p>
+      <ul class="social">
+        {% for l in site.links %}<li><a href="{{ l.url }}">[{{ l.label | lower }}]</a></li>{% endfor %}
+        <li><a href="cv.html">[cv]</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  {{ m.prompt("cat README.md") }}
+  <div class="bio prose">{{ site.bio | md }}</div>
+</section>
+
+<section class="block">
+  {{ m.prompt("ls -l research/") }}
+  <ul class="ls">
+    {% for l in research.lines %}
+    <li class="line-{{ l.key }}">
+      <span class="ls-perm">drwxr-xr-x</span>
+      <span class="ls-n">{{ l.clusters | map(attribute="papers") | map("length") | sum }}</span>
+      <a class="ls-name" href="research.html#{{ l.key }}">{{ l.number }}_{{ l.kicker | lower | replace(" ", "-") }}/</a>
+      <span class="ls-desc"><span class="c">#</span> {{ l.title }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section class="block">
+  {{ m.prompt("ls papers/ --featured") }}
+  <div class="pub-list">
+    {% for pid in site.featured %}{{ m.pub(papers[pid], lines) }}{% endfor %}
+  </div>
+  <p class="more-link"><a href="publications.html">→ ls papers/ --all</a></p>
+</section>
+
+<section class="block two-col">
+  <div>
+    {{ m.prompt("ps aux | grep project") }}
+    <ul class="project-mini">
+      {% for p in research.projects if p.status == "ongoing" %}
+      <li><span class="ok">[running]</span> <a href="research.html#{{ p.key }}">{{ p.title }}</a><span class="sub">{{ p.funder }} · {{ p.role }}</span></li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div>
+    {{ m.prompt("tail -n 5 news.log") }}
+    <ul class="news">
+      {% for n in site.news %}<li><time>[{{ n.date }}]</time> <span>{{ n.text | md(inline=true) }}</span></li>{% endfor %}
+    </ul>
+  </div>
+</section>
+{% endblock %}
