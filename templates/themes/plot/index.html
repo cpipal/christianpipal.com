@@ -13,13 +13,13 @@
     <p class="eyebrow">{{ site.role }}</p>
     <h1>{{ site.name }}</h1>
     <p class="affil">{{ site.affiliation }}</p>
+    <div class="bio prose">
+      {{ site.bio | md }}
+    </div>
     <ul class="social">
       {% for l in site.links %}<li><a href="{{ l.url }}">{{ m.icon(l.icon) }}<span>{{ l.label }}</span></a></li>{% endfor %}
       <li><a href="cv.html">{{ m.icon("cv") }}<span>CV</span></a></li>
     </ul>
-  </div>
-  <div class="bio prose">
-    {{ site.bio | md }}
   </div>
 </section>
 
