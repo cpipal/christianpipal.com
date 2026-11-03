@@ -21,9 +21,9 @@ nav:
 
 links:
   - {label: Email, url: "mailto:c.pipal@ikmz.uzh.ch", icon: mail}
-  - {label: GitHub, url: "https://github.com/cpipal", icon: github}
-  - {label: ORCID, url: "https://orcid.org/0000-0001-7237-1474", icon: orcid}
+  - {label: ORCID, url: "https://orcid.org/0000-0002-5395-2035", icon: orcid}
   - {label: Bluesky, url: "https://bsky.app/profile/christianpipal.bsky.social", icon: bluesky}
+  - {label: Instagram, url: "https://www.instagram.com/christianpipal/", icon: instagram}
   - {label: LinkedIn, url: "https://www.linkedin.com/in/christianpipal/", icon: linkedin}
   # TODO: fill in and uncomment
   # - {label: Google Scholar, url: "https://scholar.google.com/citations?user=XXXX", icon: scholar}
