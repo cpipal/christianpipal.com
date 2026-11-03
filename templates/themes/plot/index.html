@@ -18,15 +18,14 @@
       <li><a href="cv.html">{{ m.icon("cv") }}<span>CV</span></a></li>
     </ul>
   </div>
-</section>
-
-<section class="bio prose">
-  {{ site.bio | md }}
+  <div class="bio prose">
+    {{ site.bio | md }}
+  </div>
 </section>
 
 <section class="block">
   <h2 class="section-title"><span class="num">§1</span>Research, plotted</h2>
-  {{ plot.plot_figure(1, "home", "Every paper by year and research line. Papers that span several lines are connected vertically. Select a point to open its abstract and key figure.") }}
+  {{ plot.plot_figure(1, "home", "Every paper by year and research line; vertical links join papers that span several lines. Select a point to open it.") }}
 </section>
 
 <section class="block">

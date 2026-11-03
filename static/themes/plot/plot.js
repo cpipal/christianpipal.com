@@ -80,7 +80,7 @@
     var step = r * 2 + (narrow ? 2.5 : 4);
     var perRow = Math.max(1, Math.floor((colW - 6) / step));
     var subRows = Math.ceil(maxPerCol / perRow);
-    var rowH = Math.max(narrow ? 40 : 56, subRows * step + 18);
+    var rowH = Math.max(narrow ? 40 : 48, subRows * step + 16);
     var H = rowH * lines.length + axisH;
 
     svg = el("svg", { viewBox: "0 0 " + W + " " + H, width: W, height: H, class: "plot-svg" });
