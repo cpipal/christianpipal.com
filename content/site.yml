@@ -52,4 +52,7 @@ news:
 # Papers featured on the home page (ids from publications.yml)
 featured: [learning-political, batching, nice-try-chatgpt, self-correction]
 
+# Hover effect on the portrait (plot theme): one of these is picked at random on each page load.
+# Options: detect (object-detection boxes), json (LLM annotation card). Leave empty for none.
+portrait_effect: [detect, json]
 theme: plot      # classic | terminal | latex | notebook | plot — see: python build.py preview

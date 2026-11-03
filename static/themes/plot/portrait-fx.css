@@ -1,0 +1,37 @@
+/* Portrait hover effects — see portrait-fx.js. Overlay colours are fixed (they sit on the photo, not the page). */
+.portrait.fx { cursor: crosshair; isolation: isolate; }
+.portrait.fx:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.fx-layer { position: absolute; inset: 0; pointer-events: none; z-index: 2; font: 500 9.5px/1.2 var(--mono); }
+.fx-layer > * { opacity: 0; transition: opacity .25s ease, transform .3s cubic-bezier(.2,.8,.2,1); }
+.portrait.fx-active .fx-layer > * { opacity: 1; transform: none; }
+
+/* object detection boxes */
+.fx-box { position: absolute; border: 1.5px solid var(--c); box-shadow: 0 0 0 1px rgb(0 0 0 / .25); transform: scale(1.08); }
+.fx-tag {
+  position: absolute; left: -1.5px; bottom: 100%; white-space: nowrap; padding: 1px 4px 2px;
+  background: var(--c); color: #0b0d0f;
+}
+.fx-box-frame .fx-tag { bottom: auto; top: 0; }  /* full-frame box: label inside */
+.fx-status {
+  position: absolute; left: 6px; right: 6px; bottom: 6px; padding: 3px 5px; color: #d9f99d;
+  background: rgb(10 12 14 / .78); transform: translateY(6px);
+}
+
+/* LLM annotation card */
+.fx-layer-json { display: flex; align-items: flex-end; }
+.fx-code {
+  margin: 0; width: 100%; padding: 8px 8px 10px; background: rgb(10 12 14 / .86); color: #e6edf3;
+  font: 10px/1.45 var(--mono); white-space: pre; overflow: hidden; transform: translateY(20px);
+}
+.fx-line { opacity: 0; transition: opacity .2s ease; }
+.portrait.fx-active .fx-line { opacity: 1; }
+.fx-code k { color: #79c0ff; } .fx-code s { color: #a5d6ff; text-decoration: none; } .fx-code n { color: #ffa657; }
+
+@media (max-width: 640px) {
+  .fx-layer, .fx-code { font-size: 8.5px; }
+  .fx-status { left: 4px; right: 4px; bottom: 4px; padding: 2px 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .fx-optional { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fx-layer > *, .fx-line { transition: none !important; transform: none !important; }
+}

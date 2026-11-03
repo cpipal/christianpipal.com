@@ -3,7 +3,7 @@
 {% block content %}
 <section class="hero">
   <figure class="portrait-fig">
-    <div class="portrait">
+    <div class="portrait"{% if site.portrait_effect %} data-fx="{{ site.portrait_effect if site.portrait_effect is string else site.portrait_effect | join(' ') }}"{% endif %}>
       {% if site.photo %}<img src="{{ site.photo }}" alt="Portrait of {{ site.name }}" onerror="this.remove()">{% endif %}
       <span class="initials" aria-hidden="true">{{ site.name.split()[0][0] }}{{ site.name.split()[-1][0] }}</span>
     </div>
@@ -70,4 +70,4 @@
 </section>
 {% endblock %}
 {% block data %}{{ plot.plot_data() }}{% endblock %}
-{% block scripts %}<script src="themes/{{ theme }}/plot.js"></script>{% endblock %}
+{% block scripts %}<script src="themes/{{ theme }}/plot.js"></script><script src="themes/{{ theme }}/portrait-fx.js"></script>{% endblock %}
