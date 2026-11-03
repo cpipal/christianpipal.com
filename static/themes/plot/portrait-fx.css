@@ -1,4 +1,4 @@
-/* Portrait hover effects — see portrait-fx.js. Overlay colours are fixed (they sit on the photo, not the page). */
+/* Portrait hover effects (see portrait-fx.js). Overlay colours are fixed (they sit on the photo, not the page). */
 .portrait.fx { cursor: crosshair; isolation: isolate; }
 .portrait.fx:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .fx-layer { position: absolute; inset: 0; pointer-events: none; z-index: 2; font: 500 9.5px/1.2 var(--mono); }
@@ -35,3 +35,8 @@
 @media (prefers-reduced-motion: reduce) {
   .fx-layer > *, .fx-line { transition: none !important; transform: none !important; }
 }
+
+/* caption variants share one grid cell: constant height, no layout shift on hover */
+.fx-caption { display: grid; }
+.fx-caption > span { grid-area: 1 / 1; visibility: hidden; }
+.fx-caption > span.fx-cap-on { visibility: visible; }

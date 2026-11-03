@@ -91,7 +91,7 @@
       var x = labelW + i * colW;
       el("line", { x1: x, x2: x, y1: 0, y2: H - axisH, class: "gridline" }, grid);
       var tx = el("text", { x: x + colW / 2, y: H - 8, class: "tick" }, grid);
-      tx.textContent = c === null ? "—" : narrow ? "'" + String(c).slice(2) : c;
+      tx.textContent = c === null ? "n.d." : narrow ? "'" + String(c).slice(2) : c;
       el("line", { x1: x + colW / 2, x2: x + colW / 2, y1: H - axisH, y2: H - axisH + 4, class: "tickmark" }, grid);
     });
     el("line", { x1: labelW, x2: W - padR, y1: H - axisH, y2: H - axisH, class: "axis" }, grid);

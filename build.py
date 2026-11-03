@@ -164,7 +164,7 @@ def build_preview():
     (PREVIEW / "index.html").write_text(
         '<!doctype html><meta charset="utf-8"><title>Theme preview</title>'
         '<body style="font:16px/1.6 ui-monospace,Menlo,monospace;max-width:40em;margin:4em auto;padding:0 16px">'
-        f"<h1>christianpipal.com — themes</h1><ul>{items}</ul></body>",
+        f"<h1>christianpipal.com: themes</h1><ul>{items}</ul></body>",
         encoding="utf-8",
     )
 

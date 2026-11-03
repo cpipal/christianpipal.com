@@ -5,7 +5,7 @@
 #             so this file is the single place where papers are sorted. A paper can sit in several lines.
 #   projects  funded projects (containers with funder, role, team, period) and their papers.
 #
-# DRAFT texts — rewrite in your own voice.
+# DRAFT texts: rewrite in your own voice.
 
 intro: >-
   My work sits at the intersection of political communication and computational social science.
@@ -20,13 +20,13 @@ lines:
     title: Political communication on platforms
     summary: >-
       Who speaks about politics online, and with what effect? I study the communicators who now shape
-      political attention alongside parties and newsrooms — social media influencers, news influencers,
-      creators of "tradculture" content — as well as how political elites adapt their tone and style,
+      political attention alongside parties and newsrooms (social media influencers, news influencers,
+      creators of "tradculture" content), as well as how political elites adapt their tone and style,
       and how generative AI is entering political debate and the information people receive.
     clusters:
       - title: Influencers and new political communicators
         papers: [learning-political, news-influencers-chapter, past-perfect, memes-editorial]
-      - title: Political elites — tone, emotion and style
+      - title: "Political elites: tone, emotion and style"
         papers: [tone-politics, dances-duets, ai-parliaments]
       - title: AI and the information environment
         papers: [nice-try-chatgpt, biased-provision, fact-checks-llms]
@@ -39,8 +39,8 @@ lines:
     title: Measuring communication with AI
     summary: >-
       Much of what we want to know about political communication sits in millions of posts, speeches and
-      videos. I develop and validate computational tools to measure it — joint sentiment-topic models,
-      multimodal emotion recognition, and, increasingly, large language models as annotation instruments —
+      videos. I develop and validate computational tools to measure it: joint sentiment-topic models,
+      multimodal emotion recognition, and, increasingly, large language models as annotation instruments,
       with a focus on when these tools can be trusted, and at what cost.
     clusters:
       - title: LLMs as measurement instruments

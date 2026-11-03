@@ -1,6 +1,6 @@
 // Hover / tap effects for the portrait ("Fig. 0").
 //
-// <div class="portrait" data-fx="detect json"> — one of the listed effects is picked at random on every hover/tap.
+// <div class="portrait" data-fx="detect json">: one of the listed effects is picked at random on every hover/tap.
 // Effects are set in content/site.yml (portrait_effect) and can be forced with ?fx=detect or ?fx=json.
 // Box coordinates are in % of the 400×500 portrait (static/img/portrait.jpg).
 (function () {
@@ -71,15 +71,28 @@
     choices.forEach(function (f) { layers[f] = (f === "detect" ? drawBoxes : drawJSON)(portrait); });
     var fx = null;
 
-    // keep "Fig. 0." and swap only the sentence after it
+    // All caption variants are stacked in one grid cell and only toggled visible, so the caption
+    // always has the height of the longest one and the page never shifts on hover.
     var caption = portrait.closest("figure") && portrait.closest("figure").querySelector("figcaption");
-    var text, idle;
+    var variants = {};
     if (caption) {
       var no = caption.querySelector(".fig-no");
-      idle = caption.textContent.replace(no ? no.textContent : "", "").trim();
-      caption.innerHTML = (no ? no.outerHTML + " " : "") + '<span class="fx-text"></span>';
-      text = caption.querySelector(".fx-text");
-      text.textContent = idle;
+      var prefix = no ? no.outerHTML + " " : "";
+      var texts = { idle: caption.textContent.replace(no ? no.textContent : "", "").trim() };
+      choices.forEach(function (f) { texts[f] = CAPTIONS[f]; });
+      caption.innerHTML = "";
+      caption.classList.add("fx-caption");
+      Object.keys(texts).forEach(function (k) {
+        variants[k] = el("span", k === "idle" ? "fx-cap-on" : "", caption, prefix);
+        variants[k].appendChild(document.createTextNode(texts[k]));
+        if (k !== "idle") variants[k].setAttribute("aria-hidden", "true");
+      });
+    }
+    function showCaption(k) {
+      Object.keys(variants).forEach(function (v) {
+        variants[v].classList.toggle("fx-cap-on", v === k);
+        variants[v].setAttribute("aria-hidden", v === k ? "false" : "true");
+      });
     }
 
     function on() {
@@ -88,9 +101,9 @@
       portrait.dataset.fx = fx;
       Object.keys(layers).forEach(function (f) { layers[f].classList.toggle("fx-current", f === fx); });
       portrait.classList.add("fx-active");
-      if (text) text.textContent = CAPTIONS[fx];
+      showCaption(fx);
     }
-    function off() { portrait.classList.remove("fx-active"); if (text) text.textContent = idle; }
+    function off() { portrait.classList.remove("fx-active"); showCaption("idle"); }
     function toggle() { portrait.classList.contains("fx-active") ? off() : on(); }
 
     portrait.tabIndex = 0;

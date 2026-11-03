@@ -132,7 +132,7 @@ sections:
 
       - id: multiverse-news
         figure: figures/multiverse-news.jpg
-        figure_caption: "Results from the multiverse of OLS and negative binomial models — each dot is the estimated effect of news-article sentiment on shares, comments, emojis or likes (random subset of 200 of 1,728 specifications per outcome; colours mark the sentiment dictionary)."
+        figure_caption: "Results from the multiverse of OLS and negative binomial models: each dot is the estimated effect of news-article sentiment on shares, comments, emojis or likes (random subset of 200 of 1,728 specifications per outcome; colours mark the sentiment dictionary)."
         title: "If You Have Choices, Why Not Choose (and Share) All of Them? A Multiverse Approach to Understanding News Engagement on Social Media"
         authors: ["Pipal, Christian", "Song, Hyunjin", "Boomgaarden, Hajo G."]
         year: 2022
@@ -253,7 +253,7 @@ sections:
 
       - id: learning-political
         figure: figures/learning-political.png
-        figure_caption: "Audience engagement and the dynamics of political posting (H4) — better relative performance of a creator's first political post predicts a sooner next political post (a), and stronger engagement with lifestyle-political posts predicts a sooner first formal-political post (b); hazard ratios plus Kaplan–Meier curves by performance quartile."
+        figure_caption: "Audience engagement and the dynamics of political posting (H4): better relative performance of a creator's first political post predicts a sooner next political post (a), and stronger engagement with lifestyle-political posts predicts a sooner first formal-political post (b); hazard ratios plus Kaplan–Meier curves by performance quartile."
         title: "Learning to Be Political: Audience Reinforcement and the Disproportionate Political Role of Smaller Social Media Influencers"
         authors: ["Pipal, Christian", "Wack, Morgan", "Vogel, Eva-Maria", "Esser, Frank"]
         year: 2026
@@ -276,7 +276,7 @@ sections:
 
       - id: biased-provision
         figure: figures/biased-provision.png
-        figure_caption: "Opposing-side presence by query framing for each system — language models (blue) fan out under confirmatory framing while search engines (red) stay clustered, so between-LLM differences grow as queries become more leading."
+        figure_caption: "Opposing-side presence by query framing for each system: language models (blue) fan out under confirmatory framing while search engines (red) stay clustered, so between-LLM differences grow as queries become more leading."
         title: "Biased Provision: Cross-Provider Divergence in How LLMs and Search Engines Supply Evidence on Contested Political Questions"
         authors: ["Wack, Morgan", "Vogel, Eva-Maria", "Pipal, Christian"]
         year: 2026
@@ -295,7 +295,7 @@ sections:
 
       - id: nice-try-chatgpt
         figure: figures/nice-try-chatgpt.png
-        figure_caption: "What the conversation is about after each kind of reply — follow-on comments dispute authenticity 45% of the time after an AI accusation and 24% after a bot accusation, versus 3% after ordinary dismissals and 2% after a substantive reply, while substantive engagement drops to 29%."
+        figure_caption: "What the conversation is about after each kind of reply: follow-on comments dispute authenticity 45% of the time after an AI accusation and 24% after a bot accusation, versus 3% after ordinary dismissals and 2% after a substantive reply, while substantive engagement drops to 29%."
         title: "Nice Try, ChatGPT: AI Accusations Target Opponents and Divert Political Debates"
         authors: ["Wack, Morgan", "Pipal, Christian", "Vogel, Eva-Maria"]
         year: 2026
@@ -337,7 +337,7 @@ sections:
 
       - id: ai-parliaments
         figure: figures/ai-parliaments.png
-        figure_caption: "Two-shock interrupted time series — (A) model-predicted monthly AI attention in eight parliaments against a no-shock counterfactual around ChatGPT and the AI Act, and (B) per-country ChatGPT slope-change incidence rate ratios."
+        figure_caption: "Two-shock interrupted time series: (A) model-predicted monthly AI attention in eight parliaments against a no-shock counterfactual around ChatGPT and the AI Act, and (B) per-country ChatGPT slope-change incidence rate ratios."
         title: "After ChatGPT, After the AI Act: Artificial Intelligence in Eight European Parliaments, 2015–2026"
         authors: ["Pipal, Christian"]
         year: 2026
@@ -358,7 +358,7 @@ sections:
 
       - id: fact-checks-llms
         figure: figures/fact-checks-llms.png
-        figure_caption: "Vulnerability by fact-check presence — fact-checked narratives cut uncertain responses from 20.0% to 6.4% and contamination from 4.2% to 0.6%, and average 7.0% non-rejection per narrative versus 24.6% for non-fact-checked narratives."
+        figure_caption: "Vulnerability by fact-check presence: fact-checked narratives cut uncertain responses from 20.0% to 6.4% and contamination from 4.2% to 0.6%, and average 7.0% non-rejection per narrative versus 24.6% for non-fact-checked narratives."
         title: "Fact-Checks Can Help Inoculate LLMs Against Disinformation"
         authors: ["Wack, Morgan", "Vogel, Eva-Maria", "Pipal, Christian", "Warren, Patrick"]
         year: 2026

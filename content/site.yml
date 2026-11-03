@@ -28,7 +28,7 @@ links:
   # TODO: fill in and uncomment
   # - {label: Google Scholar, url: "https://scholar.google.com/citations?user=XXXX", icon: scholar}
 
-# DRAFT bio — rewrite in your own voice.
+# DRAFT bio: rewrite in your own voice.
 bio: |
   I am a Senior Research and Teaching Associate at the [Department of Communication and Media Research (IKMZ)](https://www.ikmz.uzh.ch)
   at the University of Zurich. My research asks how political communication changes when platforms,
@@ -42,7 +42,7 @@ bio: |
   I hold a PhD in Political Science from the University of Amsterdam (2024) and have been a visiting
   researcher at LMU Munich and the University of Vienna.
 
-# DRAFT — months are guesses, please check.
+# DRAFT: months are guesses, please check.
 news:
   - {date: 2026-06, text: "*Learning to Be Political* received a **Top Paper Award** from ICA's Political Communication Division."}
   - {date: 2026-05, text: "*When Does Self-Correction Work for LLMs in Content Analysis?* is out in [Computational Communication Research](https://doi.org/10.5117/ccr2026.2.13.pipa)."}
@@ -58,4 +58,4 @@ goatcounter: christianpipal
 # Hover effect on the portrait (plot theme): one of these is picked at random on each page load.
 # Options: detect (object-detection boxes), json (LLM annotation card). Leave empty for none.
 portrait_effect: [detect, json]
-theme: plot      # classic | terminal | latex | notebook | plot — see: python build.py preview
+theme: plot      # classic | terminal | latex | notebook | plot (see: python build.py preview)
