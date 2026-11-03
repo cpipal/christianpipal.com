@@ -8,8 +8,8 @@ affiliation: Department of Communication and Media Research (IKMZ), University o
 photo: img/portrait.jpg   # put a square photo at static/img/portrait.jpg; initials are shown until then
 
 description: >-
-  Christian Pipal studies political communication on digital platforms — political influencers,
-  elite rhetoric, and AI in public debate — and develops computational and LLM-based methods
+  Christian Pipal studies political communication on digital platforms (political influencers,
+  elite rhetoric, and AI in public debate) and develops computational and LLM-based methods
   for communication research.
 
 nav:
@@ -36,8 +36,8 @@ bio: |
 
   Substantively, I study political social media influencers and other non-traditional political
   communicators, the emotional tone and style of political elites, and how AI enters political debate.
-  Methodologically, I develop and validate computational tools for communication research — most recently
-  large language models for content analysis — and I write about how our discipline produces evidence.
+  Methodologically, I develop and validate computational tools for communication research, most recently
+  large language models for content analysis, and I write about how our discipline produces evidence.
 
   I hold a PhD in Political Science from the University of Amsterdam (2024) and have been a visiting
   researcher at LMU Munich and the University of Vienna.
