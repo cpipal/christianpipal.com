@@ -5,6 +5,7 @@ intro: >-
 groups:
   - title: Graduate
     items:
+      - {title: "Political Communication in the Age of Influencers and AI", kind: MA research seminar, where: University of Zurich, when: "2026"}
       - {title: "From Likes to Votes: Political Social Media Influencers", kind: Research seminar, where: University of Zurich, when: "2025"}
       - {title: "Communication Science Theories and Methods / Introduction to Python", kind: Course, where: "University of Fribourg / FH Graubünden", when: "2023, 2024"}
       - {title: Quantitative Text Analysis, kind: Course, where: University of Amsterdam, when: "2020"}
@@ -20,7 +21,6 @@ groups:
   - title: Workshops
     items:
       - {title: Introduction to R, kind: GESIS Spring School, where: Mannheim, when: "2024, 2025"}
-      - {title: Introduction to Video Analysis with Python, kind: Workshops for Ukraine, where: Online, when: "2024"}
       - {title: Introduction to R, kind: GESIS Autumn School, where: Mannheim, when: "2023"}
       - {title: Joint Sentiment-Topic Modelling in R, kind: COMPTEXT pre-conference workshop, where: Dublin, when: "2022"}
 
