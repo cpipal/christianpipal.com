@@ -44,11 +44,11 @@ lines:
       with a focus on when these tools can be trusted, and at what cost.
     clusters:
       - title: LLMs as measurement instruments
-        papers: [self-correction, batching]
+        papers: [self-correction, batching, model-sees]
       - title: Text as data and sentiment
         papers: [jst, sentiment-encyclopedia, text-as-data-polpsych, euspeech, sentitopics]
       - title: Multimodal analysis of video and images
-        papers: [mexca, dances-duets, past-perfect]
+        papers: [mexca, dances-duets, past-perfect, model-sees]
 
   - key: discipline
     number: "03"

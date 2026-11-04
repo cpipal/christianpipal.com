@@ -232,6 +232,27 @@ sections:
   - key: working
     title: Working papers
     items:
+      - id: model-sees
+        figure: figures/model-sees.png
+        figure_caption: "Estimated minus human-coded sample prevalence for every binary construct, model and input route (496 estimates); even the highest-F1 deployable route (last column) often misses the human-coded prevalence by more than ten points."
+        title: "What Does the Model See? Representation Validity in Multimodal LLM-Based Video Analysis"
+        authors: ["Pipal, Christian", "Vogel, Eva-Maria", "Wack, Morgan"]
+        year: 2026
+        preprint: https://arxiv.org/abs/2611.05181
+        abstract: >-
+          Multimodal large language models (MLLMs) allow social scientists to analyze video at scale, but researchers
+          must decide which parts of a video to provide as input. We use the term representation validity to examine
+          how text, audio, video, and combined inputs affect measurement and subsequent analysis. We compare input
+          representations across six open-weight MLLMs and three human-annotated video datasets. No representation
+          consistently performs best. On seven news-related constructs, native-video performance varies little across
+          models (macro-F1 = .70-.77), while extracted-text performance ranges from .52 to .80. Three models perform
+          better with text and three with video. Combining inputs rarely improves performance. Higher classification
+          accuracy also does not reliably produce estimates closer to those based on human codes. The highest-F1
+          representation best reproduces human-coded regression coefficients in 17 of 42 comparisons. Even when each
+          model uses its highest-F1 deployable representation, 45% of sample-prevalence estimates differ from the
+          human-coded benchmark by more than ten percentage points. Input representation therefore requires
+          validation for both the construct being measured and the quantity estimated from the resulting labels.
+
       - id: batching
         figure: figures/batching.png
         figure_caption: "Cost savings versus accuracy change relative to b=1 for each model and batch size; the shaded region marks the safe operating zone, and batch-size labels show where larger batches push models along the cost–accuracy frontier."
