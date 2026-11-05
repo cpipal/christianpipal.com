@@ -44,7 +44,7 @@ lines:
       with a focus on when these tools can be trusted, and at what cost.
     clusters:
       - title: LLMs as measurement instruments
-        papers: [self-correction, batching, model-sees]
+        papers: [self-correction, batching, model-sees, who-gets-counted]
       - title: Text as data and sentiment
         papers: [jst, sentiment-encyclopedia, text-as-data-polpsych, euspeech, sentitopics]
       - title: Multimodal analysis of video and images
@@ -60,7 +60,7 @@ lines:
       This line connects methodological choices to questions of validity, openness and inclusion.
     clusters:
       - title: Validity and language bias in computational research
-        papers: [three-gaps, grounding, multilingual-survey, software-tools-data]
+        papers: [three-gaps, grounding, multilingual-survey, software-tools-data, who-gets-counted]
       - title: Analytic flexibility and open science
         papers: [multiverse-news, tone-politics]
       - title: Publishing and citation practices

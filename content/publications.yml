@@ -232,6 +232,28 @@ sections:
   - key: working
     title: Working papers
     items:
+      - id: who-gets-counted
+        figure: figures/who-gets-counted.png
+        figure_caption: "Coverage against conditional accuracy for every name classifier and hybrid pipeline on 17,998 North Carolina voters; dotted curves mark constant total accuracy. Claude Haiku is the most accurate only because it labels about half of the voters."
+        title: "Who Gets Counted? Large Language Models, Informative Refusal, and Downstream Bias in Name-Based Demographic Classification"
+        authors: ["Pipal, Christian", "Wack, Morgan", "Vogel, Eva-Maria"]
+        year: 2026
+        preprint: https://arxiv.org/abs/2611.06550
+        abstract: >-
+          Researchers routinely infer gender, race, and ethnicity from names, yet the standard tools used for this
+          task misclassify the groups that diversity research most needs to measure. Large language models (LLMs)
+          have been proposed as a remedy because they label diverse names accurately. We ask whether that accuracy
+          carries over to the estimates researchers report. Across 10,000 Chinese names, 19,998 North Carolina voters
+          with self-reported race, and 300 political science authors with human reference codes, we compare three
+          LLMs with seven traditional tools and link the voter sample to party registration and age. Selective
+          labeling explains part of the LLMs' accuracy advantage. Claude Haiku labels half of the voters, and a
+          traditional tool limited to its most confident half is more accurate. Hard labels from every tool
+          understate the White–Black gap in Democratic registration by 36% to 65%, while BIRDiE estimation on BISG
+          posteriors comes within 0.03 of it. Haiku's missing labels select on age, inflating the age gap by six
+          years. Combined with BISG, LLM answers sharpen individual labels without a demonstrated gain in BIRDiE
+          accuracy. Classifiers should be judged by the estimates they produce, including the consequences of
+          missing labels.
+
       - id: model-sees
         figure: figures/model-sees.png
         figure_caption: "Estimated minus human-coded sample prevalence for every binary construct, model and input route (496 estimates); even the highest-F1 deployable route (last column) often misses the human-coded prevalence by more than ten points."

@@ -44,6 +44,7 @@ bio: |
 
 # DRAFT: months are guesses, please check.
 news:
+  - {date: 2026-11, text: "New preprint on [arXiv](https://arxiv.org/abs/2611.06550): *Who Gets Counted? Large Language Models, Informative Refusal, and Downstream Bias in Name-Based Demographic Classification*."}
   - {date: 2026-11, text: "New preprint on [arXiv](https://arxiv.org/abs/2611.05181): *What Does the Model See? Representation Validity in Multimodal LLM-Based Video Analysis*."}
   - {date: 2026-06, text: "*Learning to Be Political* received a **Top Paper Award** from ICA's Political Communication Division."}
   - {date: 2026-05, text: "*When Does Self-Correction Work for LLMs in Content Analysis?* is out in [Computational Communication Research](https://doi.org/10.5117/ccr2026.2.13.pipa)."}
